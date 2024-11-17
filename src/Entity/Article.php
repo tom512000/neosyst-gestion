@@ -22,6 +22,9 @@ class Article
     #[ORM\Column]
     private ?float $price = null;
 
+    #[ORM\Column(length: 50)]
+    private ?string $spreadsheetName = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -59,6 +62,18 @@ class Article
     public function setPrice(float $price): static
     {
         $this->price = $price;
+
+        return $this;
+    }
+
+    public function getSpreadsheetName(): ?string
+    {
+        return $this->spreadsheetName;
+    }
+
+    public function setSpreadsheetName(string $spreadsheetName): static
+    {
+        $this->spreadsheetName = $spreadsheetName;
 
         return $this;
     }
