@@ -17,7 +17,7 @@
             </tr>
         </thead>
         <tbody>
-        {% for article in articles %}
+        {% for article in pagination %}
             <tr>
                 <td>{{ article.id }}</td>
                 <td>{{ article.code }}</td>
@@ -38,4 +38,7 @@
     </table>
 
     <a href="{{ path('app_article_new') }}">Create new</a>
+    <div class="navigation">
+        {{ knp_pagination_render(pagination) }}
+    </div>
 {% endblock %}
