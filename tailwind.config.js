@@ -11,7 +11,8 @@ module.exports = {
         lexend: ["Lexend", "sans-serif"]
       },
       colors: {
-        "neosyst-blue": "#23272A"
+        "neosyst-header": "#347c9b",
+        "neosyst-background": "#e7e5e4"
       },
       screens: {
         ssm: "320px",
@@ -51,5 +52,7 @@ module.exports = {
     },
   },
   variants: {},
-  plugins: [],
+  plugins: [
+      require('@tailwindcss/forms'),
+  ],
 };
