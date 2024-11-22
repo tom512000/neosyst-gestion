@@ -2,6 +2,10 @@
 
 {% block title %}Article index{% endblock %}
 
+{% block head %}
+    {{ knp_pagination_rel_links(pagination) }}
+{% endblock %}
+
 {% block body %}
     <h1>Article index</h1>
 
