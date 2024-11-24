@@ -2,7 +2,7 @@
     <ol class="flex justify-center gap-1 text-xs font-medium">
         {% if first is defined and current != first %}
         <li>
-            <a href="{{ path(route, knp_pagination_query(query, first)) }}" class="flex justify-center items-center block size-10 items-center justify-center rounded border border-gray-100 bg-white text-gray-900 text-base">
+            <a href="{{ path(route, knp_pagination_query(query, first)) }}" class="flex justify-center items-center size-10 rounded border border-gray-100 bg-white text-gray-900 text-base">
                 <span class="sr-only">First Page</span>
                 <i class="bx bx-chevrons-left text-xl"></i>
             </a>
@@ -11,7 +11,7 @@
 
         {% if previous is defined %}
         <li>
-            <a href="{{ path(route, knp_pagination_query(query, previous)) }}" class="flex justify-center items-center block size-10 items-center justify-center rounded border border-gray-100 bg-white text-gray-900 text-base">
+            <a href="{{ path(route, knp_pagination_query(query, previous)) }}" class="flex justify-center items-center size-10 rounded border border-gray-100 bg-white text-gray-900 text-base">
                 <span class="sr-only">Prev Page</span>
                 <i class="bx bx-chevron-left text-xl"></i>
             </a>
@@ -22,12 +22,12 @@
             <li>
             {% if page != current %}
                 <li>
-                    <a href="{{ path(route, knp_pagination_query(query, page)) }}" class="flex justify-center items-center block size-10 rounded border border-gray-100 bg-white text-center leading-8 text-gray-900 text-base">
+                    <a href="{{ path(route, knp_pagination_query(query, page)) }}" class="flex justify-center items-center size-10 rounded border border-gray-100 bg-white text-center leading-8 text-gray-900 text-base">
                         {{ page }}
                     </a>
                 </li>
             {% else %}
-                <li class="flex justify-center items-center block size-10 rounded border-blue-600 bg-blue-600 text-center leading-8 text-white text-base">
+                <li class="flex justify-center items-center size-10 rounded border-blue-600 bg-blue-600 text-center leading-8 text-white text-base">
                     {{ page }}
                 </li>
             {% endif %}
@@ -35,7 +35,7 @@
 
         {% if next is defined %}
         <li>
-            <a href="{{ path(route, knp_pagination_query(query, next)) }}" class="flex justify-center items-center block size-10 items-center justify-center rounded border border-gray-100 bg-white text-gray-900 text-base">
+            <a href="{{ path(route, knp_pagination_query(query, next)) }}" class="flex justify-center items-center size-10 rounded border border-gray-100 bg-white text-gray-900 text-base">
                 <span class="sr-only">Next Page</span>
                 <i class="bx bx-chevron-right text-xl"></i>
             </a>
@@ -44,7 +44,7 @@
 
         {% if last is defined and current != last %}
         <li>
-            <a href="{{ path(route, knp_pagination_query(query, last)) }}" class="flex justify-center items-center block size-10 items-center justify-center rounded border border-gray-100 bg-white text-gray-900 text-base">
+            <a href="{{ path(route, knp_pagination_query(query, last)) }}" class="flex justify-center items-center size-10 rounded border border-gray-100 bg-white text-gray-900 text-base">
                 <span class="sr-only">Last Page</span>
                 <i class="bx bx-chevrons-right text-xl"></i>
             </a>
