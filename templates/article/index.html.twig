@@ -7,51 +7,63 @@
 {% endblock %}
 
 {% block main %}
-    <main class="flex-1 overflow-x-hidden overflow-y-auto bg-gray-200">
-        <div class="container px-6 py-8 mx-auto">
-            <h3 class="text-3xl font-medium text-gray-700">Articles</h3>
+<main class="flex-1 overflow-x-hidden overflow-y-auto bg-gray-200">
+    <div class="container px-6 py-8 mx-auto">
+        <div class="flex">
+            <h3 class="text-3xl font-medium text-gray-700 font-lexend">Articles</h3>
+            <p class="flex items-center font-light text-gray-700 font-lexend">&ensp;({{ totalDisplayed }} sur {{ totalArticle }})</p>
+        </div>
+        <div class="mt-4">
+            <div class="flex flex-wrap -mx-6">
+                <div class="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 lg:grid-cols-3 lg:gap-8 mx-6 my-2">
+                    {% for article in pagination %}
+                        <div class="group block overflow-hidden bg-white shadow-sm rounded-md">
+                            <a href="{{ path('app_article_show', {'id': article.id}) }}" class="relative">
+                                <img src="{{ asset('images/default-image-article.png') }}" alt="Article {{ article.id }}" class="h-[250px] w-full object-cover sm:h-[350px]" />
+                                <div x-data="{ dropdownOpen: false }" class="absolute top-2 right-3 z-50 overflow-hidden">
+                                    <i @click="dropdownOpen = ! dropdownOpen" class="bx bx-dots-horizontal-rounded text-2xl text-gray-800 bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 cursor-pointer"></i>
 
-            <div class="mt-4">
-                <div class="flex flex-wrap -mx-6">
-                    <table class="table">
-                        <thead>
-                        <tr>
-                            <th>Id</th>
-                            <th>Code</th>
-                            <th>Description</th>
-                            <th>Price</th>
-                            <th>SpreadsheetName</th>
-                            <th>actions</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {% for article in pagination %}
-                            <tr>
-                                <td>{{ article.id }}</td>
-                                <td>{{ article.code }}</td>
-                                <td>{{ article.description }}</td>
-                                <td>{{ article.price }}</td>
-                                <td>{{ article.spreadsheetName }}</td>
-                                <td>
-                                    <a href="{{ path('app_article_show', {'id': article.id}) }}">show</a>
-                                    <a href="{{ path('app_article_edit', {'id': article.id}) }}">edit</a>
-                                </td>
-                            </tr>
-                        {% else %}
-                            <tr>
-                                <td colspan="6">no records found</td>
-                            </tr>
-                        {% endfor %}
-                        </tbody>
-                    </table>
+                                    <div x-show="dropdownOpen" @click="dropdownOpen = false" class="fixed inset-0 z-10 w-full h-full"
+                                         style="display: none;"></div>
 
-                    {# <a href="{{ path('app_article_new') }}">Create new</a>#}
+                                    <div x-show="dropdownOpen"
+                                         class="absolute right-0 z-10 w-48 mt-2 overflow-hidden bg-white rounded-md shadow-xl"
+                                         style="display: none;">
+                                        <a href="#"
+                                           class="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-600 hover:text-white">Profile</a>
+                                        <a href="#"
+                                           class="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-600 hover:text-white">Products</a>
+                                        <a href="#"
+                                           class="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-600 hover:text-white">Logout</a>
+                                    </div>
+                                </div>
+                            </a>
+                            <div class="p-4">
+                                <div class="flex justify-between items-center">
+                                    <h3 class="text-gray-900 font-geist-mono group-hover:underline group-hover:underline-offset-4 text-lg">{{ article.code }}</h3>
+                                    <p class="text-gray-900 font-geist-mono font-bold">{{ article.price|number_format(2, '.', '') }}&thinsp;&euro;</p>
+                                </div>
+                                <p class="mt-1.5 text-justify text-pretty text-xs text-gray-500 font-lexend font-light">{{ article.description }}</p>
+                                <p class="mt-1.5 text-justify text-pretty text-xs text-gray-500 font-lexend font-normal">À partir du fichier Excel &laquo;{{ article.spreadsheetName }}&raquo;.</p>
+                                <div class="h-full mt-2 flex items-end space-x-2 text-sm">
+                                    <a href="{{ path('app_article_edit', {'id': article.id}) }}" class="w-full flex justify-center items-center bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 rounded">Modifier</a>
+                                </div>
+                            </div>
+                        </div>
+                    {% else %}
+                        <div>
+                            <p>no records found</p>
+                        </div>
+                    {% endfor %}
+                </div>
 
-                    <div class="w-full flex justify-center items-center mt-8">
-                        {{ knp_pagination_render(pagination, "components/_custom_pagination.html.twig") }}
-                    </div>
+                <a href="{{ path('app_article_new') }}">Create new</a>
+
+                <div class="w-full flex justify-center items-center mt-8">
+                    {{ knp_pagination_render(pagination, "components/_custom_pagination.html.twig") }}
                 </div>
             </div>
         </div>
-    </main>
+    </div>
+</main>
 {% endblock %}

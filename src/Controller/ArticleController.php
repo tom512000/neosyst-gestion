@@ -18,14 +18,21 @@ final class ArticleController extends AbstractController
     #[Route(name: 'app_article_index', methods: ['GET'])]
     public function index(ArticleRepository $articleRepository, PaginatorInterface $paginator, Request $request): Response
     {
+        $currentPage = $request->query->getInt('page', 1);
+        $itemsPerPage = 15;
+
         $pagination = $paginator->paginate(
             $articleRepository->findAll(),
-            $request->query->getInt('page', 1),
-            15
+            $currentPage,
+            $itemsPerPage
         );
+
+        $totalDisplayed = min($currentPage * $itemsPerPage, count($articleRepository->findAll()));
 
         return $this->render('article/index.html.twig', [
             'pagination' => $pagination,
+            'totalDisplayed' => $totalDisplayed,
+            'totalArticle' => count($articleRepository->findAll()),
         ]);
     }
 

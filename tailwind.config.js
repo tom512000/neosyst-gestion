@@ -8,7 +8,8 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        lexend: ["Lexend", "sans-serif"]
+        "geist-mono": ["Geist Mono", "sans-serif"],
+        "lexend": ["Lexend", "sans-serif"]
       },
       colors: {
         "neosyst-header": "#347c9b",
