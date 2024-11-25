@@ -18,6 +18,7 @@
         {% block javascripts %}
             {{ encore_entry_script_tags('app') }}
             {% block importmap %}{{ importmap('app') }}{% endblock %}
+            <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
         {% endblock %}
 
         {% block head %}
@@ -25,7 +26,6 @@
     </head>
     <body class="mx-auto max-w-screen-2xl px-4 sm:px-6 lg:px-8 overflow-y-hidden">
         <div>
-            <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
             <div x-data="{ sidebarOpen: false }" class="flex h-screen bg-gray-200">
                 <div :class="sidebarOpen ? 'block' : 'hidden'" @click="sidebarOpen = false" class="fixed inset-0 z-20 transition-opacity bg-black opacity-50 lg:hidden"></div>
 
