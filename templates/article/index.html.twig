@@ -9,9 +9,17 @@
 {% block main %}
 <main class="flex-1 overflow-x-hidden overflow-y-auto bg-gray-200">
     <div class="container px-6 py-8 mx-auto">
-        <div class="flex">
-            <h3 class="text-3xl font-medium text-gray-700 font-lexend">Articles</h3>
-            <p class="flex items-center font-light text-gray-700 font-lexend">&ensp;({{ totalDisplayed }} sur {{ totalArticle }})</p>
+        <div class="flex justify-between items-center">
+            <div class="flex">
+                <h3 class="text-3xl font-medium text-gray-700 font-lexend">Articles</h3>
+                <p class="flex items-center font-light text-gray-700 font-lexend">&ensp;({{ totalDisplayed }} sur {{ totalArticle }})</p>
+            </div>
+            <a href="{{ path('app_article_new') }}" class="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-indigo-600 group-hover:bg-bg-indigo-600 hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300">
+                <span class="relative flex justify-center items-center px-3 py-2 transition-all ease-in duration-75 bg-gray-200 text-sm font-lexend rounded-md group-hover:bg-opacity-0">
+                    <i class="bx bx-plus text-xl mr-1.5"></i>
+                    Ajouter un article
+                </span>
+            </a>
         </div>
         <div class="mt-4">
             <div class="flex flex-wrap -mx-6">
@@ -60,9 +68,6 @@
                         </div>
                     {% endfor %}
                 </div>
-
-                <a href="{{ path('app_article_new') }}">Create new</a>
-
                 <div class="w-full flex justify-center items-center mt-8">
                     {{ knp_pagination_render(pagination, "components/_custom_pagination.html.twig") }}
                 </div>
