@@ -7,7 +7,7 @@
             <h3 class="text-3xl font-medium text-gray-700 font-lexend">Article {{ article.code }}</h3>
         </div>
         <div class="mt-4">
-            <article class="flex bg-white transition hover:shadow-xl rounded-md overflow-hidden">
+            <article class="flex bg-white transition shadow-lg rounded-md overflow-hidden">
                 <div class="flex items-center justify-between gap-4 text-xs font-bold uppercase rotate-180 p-2 [writing-mode:_vertical-lr] bg-indigo-600 rounded-r-md">
                     <span class="font-geist-mono text-white">{{ article.code }}</span>
                 </div>
@@ -22,6 +22,7 @@
                     <div class="border-s border-gray-900/10 p-4 sm:border-l-transparent sm:p-6">
                         <h3 class="font-bold uppercase text-gray-900">Identifiant {{ article.id }}</h3>
                         <p class="mt-2 text-justify line-clamp-3 text-sm/relaxed text-gray-700">{{ article.description }}</p>
+                        <p class="mt-2 text-justify line-clamp-3 text-sm/relaxed text-gray-700">À partir du fichier Excel &laquo;{{ article.spreadsheetName }}&raquo;.</p>
                     </div>
 
                     <div class="sm:flex sm:items-end sm:justify-end">
@@ -39,6 +40,59 @@
             <h3 class="text-3xl font-medium text-gray-700 font-lexend">Article(s) similaire(s)</h3>
         </div>
         <div class="mt-4">
+            <div class="inline-block min-w-full overflow-hidden align-middle border-b border-gray-200 shadow sm:rounded-lg">
+                <table class="min-w-full">
+                    <thead>
+                        <tr>
+                            <th class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">Identifiant</th>
+                            <th class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">Code</th>
+                            <th class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">Description</th>
+                            <th class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">Prix</th>
+                            <th class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">Excel</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white">
+                        {% for similar in similarArticles %}
+                            <tr class="group">
+                                <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                                    <div class="flex items-center">
+                                        <div class="flex-shrink-0 w-10 h-10">
+                                            {% if article.picture != "" %}
+                                                <img src="{{ asset('uploads/' ~ article.picture) }}" alt="Article {{ similar.code }}" class="w-10 h-10 rounded-full" />
+                                            {% else %}
+                                                <img src="{{ asset('images/default-image-article.png') }}" alt="Article {{ similar.code }}" class="w-10 h-10 rounded-full">
+                                            {% endif %}
+                                        </div>
+                                        <div class="ml-4">
+                                            <p class="text-nowrap text-sm font-medium leading-5 text-gray-900">ID {{ similar.id }}</p>
+                                        </div>
+                                    </div>
+                                </td>
+
+                                <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                                    <a href="{{ path('app_article_show', {'id': similar.id}) }}" class="text-nowrap text-sm font-semibold font-geist-mono leading-5 text-gray-900 group-hover:underline group-hover:underline-offset-4">{{ similar.code }}</a>
+                                </td>
+
+                                <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                                    <p class="text-sm font-medium leading-5 text-gray-500">{{ similar.description }}</p>
+                                </td>
+
+                                <td class="px-6 py-4 border-b border-gray-200">
+                                    <p class="text-nowrap text-sm font-semibold leading-5 text-gray-900 font-geist-mono whitespace-no-wrap">{{ similar.price|number_format(2, '.', '') }}&thinsp;&euro;</p>
+                                </td>
+
+                                <td class="px-6 py-4 text-sm font-medium leading-5 whitespace-no-wrap border-b border-gray-200">
+                                    <p class="text-nowrap text-sm font-medium leading-5 text-gray-900 whitespace-no-wrap">{{ similar.spreadsheetName }}</p>
+                                </td>
+                            </tr>
+                        {% else %}
+                            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                                <p class="text-nowrap text-sm font-medium leading-5 text-gray-900">Aucun article...</p>
+                            </td>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </main>

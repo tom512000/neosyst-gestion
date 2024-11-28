@@ -16,28 +16,22 @@ class ArticleRepository extends ServiceEntityRepository
         parent::__construct($registry, Article::class);
     }
 
-    //    /**
-    //     * @return Article[] Returns an array of Article objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('a')
-    //            ->andWhere('a.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('a.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
+    public function findSimilarArticles(string $description, int $limit = 5, int $currentArticleId = null): array
+    {
+        $articles = $this->createQueryBuilder('a')
+            ->where('a.id != :currentId')
+            ->setParameter('currentId', $currentArticleId)
+            ->getQuery()
+            ->getResult();
 
-    //    public function findOneBySomeField($value): ?Article
-    //    {
-    //        return $this->createQueryBuilder('a')
-    //            ->andWhere('a.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
+        $results = [];
+        foreach ($articles as $article) {
+            $distance = levenshtein($description, $article->getDescription());
+            $results[] = ['article' => $article, 'score' => $distance];
+        }
+
+        usort($results, fn($a, $b) => $a['score'] <=> $b['score']);
+
+        return array_slice(array_column($results, 'article'), 0, $limit);
+    }
 }
