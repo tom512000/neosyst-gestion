@@ -3,47 +3,43 @@
 {% block main %}
 <main class="flex-1 overflow-x-hidden overflow-y-auto bg-gray-200">
     <div class="container px-6 py-8 mx-auto">
+        <div class="flex">
+            <h3 class="text-3xl font-medium text-gray-700 font-lexend">Article {{ article.code }}</h3>
+        </div>
+        <div class="mt-4">
+            <article class="flex bg-white transition hover:shadow-xl rounded-md overflow-hidden">
+                <div class="flex items-center justify-between gap-4 text-xs font-bold uppercase rotate-180 p-2 [writing-mode:_vertical-lr] bg-indigo-600 rounded-r-md">
+                    <span class="font-geist-mono text-white">{{ article.code }}</span>
+                </div>
+                <div class="hidden sm:block sm:basis-56">
+                    {% if article.picture != "" %}
+                        <img src="{{ asset('uploads/' ~ article.picture) }}" alt="Article {{ article.code }}" class="aspect-square h-full w-full object-cover" />
+                    {% else %}
+                        <img src="{{ asset('images/default-image-article.png') }}" alt="Article {{ article.code }}" class="aspect-square h-full w-full object-cover" />
+                    {% endif %}
+                </div>
+                <div class="flex flex-1 flex-col justify-between">
+                    <div class="border-s border-gray-900/10 p-4 sm:border-l-transparent sm:p-6">
+                        <h3 class="font-bold uppercase text-gray-900">Identifiant {{ article.id }}</h3>
+                        <p class="mt-2 text-justify line-clamp-3 text-sm/relaxed text-gray-700">{{ article.description }}</p>
+                    </div>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ article.id }}</td>
-            </tr>
-            <tr>
-                <th>Code</th>
-                <td>{{ article.code }}</td>
-            </tr>
-            <tr>
-                <th>Description</th>
-                <td>{{ article.description }}</td>
-            </tr>
-            <tr>
-                <th>Price</th>
-                <td>{{ article.price }}</td>
-            </tr>
-            <tr>
-                <th>SpreadsheetName</th>
-                <td>{{ article.spreadsheetName }}</td>
-            </tr>
-        <tr>
-            <th>Image</th>
-            {% if article.picture != "" %}
-                <td>
-                    <img src="{{ asset('uploads/' ~ article.picture) }}" alt="Article {{ article.code }}">
-                </td>
-            {% else %}
-                <td>
-                    <img src="{{ asset('images/default-image-article.png') }}" alt="Article {{ article.code }}">
-                </td>
-            {% endif %}
-        </tr>
-        </tbody>
-    </table>
+                    <div class="sm:flex sm:items-end sm:justify-end">
+                        <p class="block bg-indigo-600 px-5 py-3 text-center text-sm font-bold uppercase font-geist-mono text-white rounded-tl-lg">{{ article.price|number_format(2, '.', '') }}&thinsp;&euro;</p>
+                    </div>
+                </div>
+            </article>
 
-    <a href="{{ path('app_article_index') }}">back to list</a>
+            <a href="{{ path('app_article_index') }}">back to list</a>
+            <a href="{{ path('app_article_edit', {'id': article.id}) }}">edit</a>
 
-    <a href="{{ path('app_article_edit', {'id': article.id}) }}">edit</a>
-
-    {{ include('article/_delete_form.html.twig') }}
+            {{ include('article/_delete_form.html.twig') }}
+        </div>
+        <div class="flex mt-8">
+            <h3 class="text-3xl font-medium text-gray-700 font-lexend">Article(s) similaire(s)</h3>
+        </div>
+        <div class="mt-4">
+        </div>
+    </div>
+</main>
 {% endblock %}
