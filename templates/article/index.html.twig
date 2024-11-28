@@ -27,7 +27,11 @@
                     {% for article in pagination %}
                         <div class="group block overflow-hidden bg-white shadow-sm rounded-md relative">
                         <div class="relative">
+                            {% if article.picture != "" %}
+                                <img src="{{ asset('uploads/' ~ article.picture) }}" alt="Article {{ article.id }}" class="h-[250px] w-full object-cover sm:h-[350px]" />
+                            {% else %}
                                 <img src="{{ asset('images/default-image-article.png') }}" alt="Article {{ article.id }}" class="h-[250px] w-full object-cover sm:h-[350px]" />
+                            {% endif %}
                                 <div x-data="{ dropdownOpen: false }" class="absolute top-2 right-3.5 z-50">
                                     <i @click="dropdownOpen = !dropdownOpen" class="bx bx-dots-horizontal-rounded text-2xl text-gray-800 bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 cursor-pointer"></i>
                                     <div x-show="dropdownOpen"

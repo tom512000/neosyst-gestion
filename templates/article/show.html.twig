@@ -2,8 +2,9 @@
 
 {% block title %}Article{% endblock %}
 
-{% block body %}
-    <h1>Article</h1>
+{% block main %}
+<main class="flex-1 overflow-x-hidden overflow-y-auto bg-gray-200">
+    <div class="container px-6 py-8 mx-auto">
 
     <table class="table">
         <tbody>
@@ -27,6 +28,18 @@
                 <th>SpreadsheetName</th>
                 <td>{{ article.spreadsheetName }}</td>
             </tr>
+        <tr>
+            <th>Image</th>
+            {% if article.picture != "" %}
+                <td>
+                    <img src="{{ asset('uploads/' ~ article.picture) }}" alt="Article {{ article.code }}">
+                </td>
+            {% else %}
+                <td>
+                    <img src="{{ asset('images/default-image-article.png') }}" alt="Article {{ article.code }}">
+                </td>
+            {% endif %}
+        </tr>
         </tbody>
     </table>
 
