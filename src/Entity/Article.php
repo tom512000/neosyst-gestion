@@ -25,6 +25,9 @@ class Article
     #[ORM\Column(length: 50)]
     private ?string $spreadsheetName = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $picture = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -74,6 +77,18 @@ class Article
     public function setSpreadsheetName(string $spreadsheetName): static
     {
         $this->spreadsheetName = $spreadsheetName;
+
+        return $this;
+    }
+
+    public function getPicture(): ?string
+    {
+        return $this->picture;
+    }
+
+    public function setPicture(?string $picture): static
+    {
+        $this->picture = $picture;
 
         return $this;
     }
