@@ -3,8 +3,17 @@
 {% block main %}
 <main class="flex-1 overflow-x-hidden overflow-y-auto bg-gray-200">
     <div class="container px-6 py-8 mx-auto">
-        <div class="flex">
-            <h3 class="text-3xl font-medium text-gray-700 font-lexend">Article {{ article.code }}</h3>
+        <div class="flex justify-between items-center">
+            <div class="flex">
+                <h3 class="text-3xl font-medium text-gray-700 font-lexend">Article {{ article.code }}</h3>
+            </div>
+            <div class="inline-flex">{# p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium focus:ring-4 focus:outline-none focus:ring-blue-300 #}
+                <a href="{{ path('app_article_edit', {'id': article.id}) }}" class="bg-indigo-600 hover:bg-indigo-800 text-white text-sm font-medium pt-2.5 pb-2.5 px-4 rounded-l">Modifier</a>
+                <form method="post" action="{{ path('app_article_delete', {'id': article.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer l\'article ?');" class="bg-red-600 hover:bg-red-800 text-white text-sm font-medium rounded-r">
+                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ article.id) }}">
+                    <button class="w-full h-full pt-2.5 pb-2.5 px-4">Supprimer</button>
+                </form>
+            </div>
         </div>
         <div class="mt-4">
             <article class="flex bg-white transition shadow-lg rounded-md overflow-hidden">
@@ -32,9 +41,6 @@
             </article>
 
             <a href="{{ path('app_article_index') }}">back to list</a>
-            <a href="{{ path('app_article_edit', {'id': article.id}) }}">edit</a>
-
-            {{ include('article/_delete_form.html.twig') }}
         </div>
         <div class="flex mt-8">
             <h3 class="text-3xl font-medium text-gray-700 font-lexend">Article(s) similaire(s)</h3>
