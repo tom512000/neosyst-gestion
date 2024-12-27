@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ClientRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ClientRepository::class)]
@@ -27,6 +29,17 @@ class Client
 
     #[ORM\Column(length: 10, nullable: true)]
     private ?string $faxNumber = null;
+
+    /**
+     * @var Collection<int, SAV>
+     */
+    #[ORM\OneToMany(targetEntity: SAV::class, mappedBy: 'client')]
+    private Collection $sAVs;
+
+    public function __construct()
+    {
+        $this->sAVs = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -89,6 +102,36 @@ class Client
     public function setFaxNumber(?string $faxNumber): static
     {
         $this->faxNumber = $faxNumber;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, SAV>
+     */
+    public function getSAVs(): Collection
+    {
+        return $this->sAVs;
+    }
+
+    public function addSAV(SAV $sAV): static
+    {
+        if (!$this->sAVs->contains($sAV)) {
+            $this->sAVs->add($sAV);
+            $sAV->setClient($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSAV(SAV $sAV): static
+    {
+        if ($this->sAVs->removeElement($sAV)) {
+            // set the owning side to null (unless already changed)
+            if ($sAV->getClient() === $this) {
+                $sAV->setClient(null);
+            }
+        }
 
         return $this;
     }
