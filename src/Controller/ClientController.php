@@ -6,6 +6,7 @@ use App\Entity\Client;
 use App\Form\ClientType;
 use App\Repository\ClientRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,10 +16,23 @@ use Symfony\Component\Routing\Attribute\Route;
 final class ClientController extends AbstractController
 {
     #[Route(name: 'app_client_index', methods: ['GET'])]
-    public function index(ClientRepository $clientRepository): Response
+    public function index(ClientRepository $clientRepository, PaginatorInterface $paginator, Request $request): Response
     {
+        $currentPage = $request->query->getInt('page', 1);
+        $itemsPerPage = 20;
+
+        $pagination = $paginator->paginate(
+            $clientRepository->findAll(),
+            $currentPage,
+            $itemsPerPage
+        );
+
+        $totalDisplayed = min($currentPage * $itemsPerPage, count($clientRepository->findAll()));
+
         return $this->render('client/index.html.twig', [
-            'clients' => $clientRepository->findAll(),
+            'pagination' => $pagination,
+            'totalDisplayed' => $totalDisplayed,
+            'totalClient' => count($clientRepository->findAll()),
         ]);
     }
 
