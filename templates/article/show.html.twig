@@ -55,7 +55,7 @@
                 <table class="min-w-full">
                     <thead>
                         <tr>
-                            <th class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">Identifiant</th>
+                            <th class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50"></th>
                             <th class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">Code</th>
                             <th class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">Description</th>
                             <th class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">Prix</th>
@@ -66,15 +66,12 @@
                             <tr class="group">
                                 <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
                                     <div class="flex items-center">
-                                        <div class="flex-shrink-0 w-10 h-10">
+                                        <div class="flex-shrink-0 w-12 h-12">
                                             {% if article.picture != "" %}
-                                                <img src="{{ asset('uploads/' ~ article.picture) }}" alt="Article {{ similar.code }}" class="w-10 h-10 rounded-full" />
+                                                <img src="{{ asset('uploads/' ~ article.picture) }}" alt="Article {{ similar.code }}" class="w-12 h-12 rounded-full" />
                                             {% else %}
-                                                <img src="{{ asset('images/default-image-article.png') }}" alt="Article {{ similar.code }}" class="w-10 h-10 rounded-full">
+                                                <img src="{{ asset('images/default-image-article.png') }}" alt="Article {{ similar.code }}" class="w-12 h-12 rounded-full">
                                             {% endif %}
-                                        </div>
-                                        <div class="ml-4">
-                                            <p class="text-nowrap text-sm font-medium leading-5 text-gray-900">ID {{ similar.id }}</p>
                                         </div>
                                     </div>
                                 </td>
