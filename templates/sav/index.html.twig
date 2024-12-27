@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}SAV index{% endblock %}
+
+{% block body %}
+    <h1>SAV index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Code</th>
+                <th>CreatedDate</th>
+                <th>Representative</th>
+                <th>Breakdown</th>
+                <th>EndDate</th>
+                <th>RepairedBy</th>
+                <th>Repairs</th>
+                <th>Comments</th>
+                <th>Charge</th>
+                <th>SpreadsheetName</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for s_a_v in s_a_vs %}
+            <tr>
+                <td>{{ s_a_v.id }}</td>
+                <td>{{ s_a_v.code }}</td>
+                <td>{{ s_a_v.createdDate ? s_a_v.createdDate|date('Y-m-d') : '' }}</td>
+                <td>{{ s_a_v.representative }}</td>
+                <td>{{ s_a_v.breakdown }}</td>
+                <td>{{ s_a_v.endDate ? s_a_v.endDate|date('Y-m-d') : '' }}</td>
+                <td>{{ s_a_v.repairedBy }}</td>
+                <td>{{ s_a_v.repairs }}</td>
+                <td>{{ s_a_v.comments }}</td>
+                <td>{{ s_a_v.charge }}</td>
+                <td>{{ s_a_v.spreadsheetName }}</td>
+                <td>
+                    <a href="{{ path('app_s_a_v_show', {'id': s_a_v.id}) }}">show</a>
+                    <a href="{{ path('app_s_a_v_edit', {'id': s_a_v.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="12">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_s_a_v_new') }}">Create new</a>
+{% endblock %}

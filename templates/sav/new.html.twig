@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New SAV{% endblock %}
+
+{% block body %}
+    <h1>Create new SAV</h1>
+
+    {{ include('sav/_form.html.twig') }}
+
+    <a href="{{ path('app_s_a_v_index') }}">back to list</a>
+{% endblock %}
