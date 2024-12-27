@@ -36,6 +36,9 @@ class Client
     #[ORM\OneToMany(targetEntity: SAV::class, mappedBy: 'client')]
     private Collection $sAVs;
 
+    #[ORM\Column(length: 50)]
+    private ?string $spreadsheetName = null;
+
     public function __construct()
     {
         $this->sAVs = new ArrayCollection();
@@ -132,6 +135,18 @@ class Client
                 $sAV->setClient(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getSpreadsheetName(): ?string
+    {
+        return $this->spreadsheetName;
+    }
+
+    public function setSpreadsheetName(string $spreadsheetName): static
+    {
+        $this->spreadsheetName = $spreadsheetName;
 
         return $this;
     }
