@@ -5,48 +5,48 @@
 {% block clientPage %}text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100{% endblock %}
 {% block articlePage %}text-gray-100 bg-gray-700 bg-opacity-25{% endblock %}
 
+{% block header %}
+    <div class="w-full flex justify-between items-center">
+        <div class="flex">
+            <h3 class="text-3xl font-medium text-gray-700 font-lexend">Articles</h3>
+            <p class="flex items-center font-light text-gray-700 font-lexend mt-2.5">&ensp;{{ article.code }}</p>
+        </div>
+        <div class="inline-flex">
+            <a href="{{ path('app_article_edit', {'id': article.id}) }}" class="bg-indigo-600 hover:bg-indigo-800 text-white text-sm font-medium pt-2.5 pb-2.5 px-4 rounded-l">Modifier</a>
+            <form method="post" action="{{ path('app_article_delete', {'id': article.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer l\'article ?');" class="bg-red-600 hover:bg-red-800 text-white text-sm font-medium rounded-r">
+                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ article.id) }}">
+                <button class="w-full h-full pt-2.5 pb-2.5 px-4">Supprimer</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}
+
 {% block main %}
 <main class="flex-1 overflow-x-hidden overflow-y-auto bg-gray-200">
-    <div class="container px-6 py-8 mx-auto">
-        <div class="flex justify-between items-center">
-            <div class="flex">
-                <h3 class="text-3xl font-medium text-gray-700 font-lexend">Article {{ article.code }}</h3>
+    <div class="container px-6 py-6 mx-auto">
+        <article class="flex bg-white transition shadow-lg rounded-md overflow-hidden">
+            <div class="flex items-center justify-between gap-4 text-xs font-bold uppercase rotate-180 p-2 [writing-mode:_vertical-lr] bg-indigo-600 rounded-r-md">
+                <span class="font-geist-mono text-white">{{ article.code }}</span>
             </div>
-            <div class="inline-flex">{# p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium focus:ring-4 focus:outline-none focus:ring-blue-300 #}
-                <a href="{{ path('app_article_edit', {'id': article.id}) }}" class="bg-indigo-600 hover:bg-indigo-800 text-white text-sm font-medium pt-2.5 pb-2.5 px-4 rounded-l">Modifier</a>
-                <form method="post" action="{{ path('app_article_delete', {'id': article.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer l\'article ?');" class="bg-red-600 hover:bg-red-800 text-white text-sm font-medium rounded-r">
-                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ article.id) }}">
-                    <button class="w-full h-full pt-2.5 pb-2.5 px-4">Supprimer</button>
-                </form>
+            <div class="hidden sm:block sm:basis-56">
+                {% if article.picture != "" %}
+                    <img src="{{ asset('uploads/' ~ article.picture) }}" alt="Article {{ article.code }}" class="aspect-square h-full w-full object-cover" />
+                {% else %}
+                    <img src="{{ asset('images/default-image-article.png') }}" alt="Article {{ article.code }}" class="aspect-square h-full w-full object-cover" />
+                {% endif %}
             </div>
-        </div>
-        <div class="mt-4">
-            <article class="flex bg-white transition shadow-lg rounded-md overflow-hidden">
-                <div class="flex items-center justify-between gap-4 text-xs font-bold uppercase rotate-180 p-2 [writing-mode:_vertical-lr] bg-indigo-600 rounded-r-md">
-                    <span class="font-geist-mono text-white">{{ article.code }}</span>
+            <div class="flex flex-1 flex-col justify-between">
+                <div class="border-s border-gray-900/10 p-4 sm:border-l-transparent sm:p-6">
+                    <h3 class="font-bold uppercase text-gray-900">Identifiant {{ article.id }}</h3>
+                    <p class="mt-2 text-justify line-clamp-3 text-sm/relaxed text-gray-700">{{ article.description }}</p>
                 </div>
-                <div class="hidden sm:block sm:basis-56">
-                    {% if article.picture != "" %}
-                        <img src="{{ asset('uploads/' ~ article.picture) }}" alt="Article {{ article.code }}" class="aspect-square h-full w-full object-cover" />
-                    {% else %}
-                        <img src="{{ asset('images/default-image-article.png') }}" alt="Article {{ article.code }}" class="aspect-square h-full w-full object-cover" />
-                    {% endif %}
+                <div class="flex justify-between items-center">
+                    <p class="mt-1 pl-4 sm:pl-6 text-justify line-clamp-3 text-sm/relaxed text-gray-700">À partir du fichier Excel &laquo;{{ article.spreadsheetName }}&raquo;.</p>
+                    <p class="block bg-indigo-600 px-5 py-3 text-center text-sm font-bold uppercase font-geist-mono text-white rounded-tl-lg">{{ article.price|number_format(2, '.', '') }}&thinsp;&euro;</p>
                 </div>
-                <div class="flex flex-1 flex-col justify-between">
-                    <div class="border-s border-gray-900/10 p-4 sm:border-l-transparent sm:p-6">
-                        <h3 class="font-bold uppercase text-gray-900">Identifiant {{ article.id }}</h3>
-                        <p class="mt-2 text-justify line-clamp-3 text-sm/relaxed text-gray-700">{{ article.description }}</p>
-                        <p class="mt-2 text-justify line-clamp-3 text-sm/relaxed text-gray-700">À partir du fichier Excel &laquo;{{ article.spreadsheetName }}&raquo;.</p>
-                    </div>
+            </div>
+        </article>
 
-                    <div class="sm:flex sm:items-end sm:justify-end">
-                        <p class="block bg-indigo-600 px-5 py-3 text-center text-sm font-bold uppercase font-geist-mono text-white rounded-tl-lg">{{ article.price|number_format(2, '.', '') }}&thinsp;&euro;</p>
-                    </div>
-                </div>
-            </article>
-
-            <a href="{{ path('app_article_index') }}">back to list</a>
-        </div>
         <div class="flex mt-8">
             <h3 class="text-3xl font-medium text-gray-700 font-lexend">Article(s) similaire(s)</h3>
         </div>
@@ -59,7 +59,6 @@
                             <th class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">Code</th>
                             <th class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">Description</th>
                             <th class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">Prix</th>
-                            <th class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">Excel</th>
                         </tr>
                     </thead>
                     <tbody class="bg-white">
@@ -79,21 +78,14 @@
                                         </div>
                                     </div>
                                 </td>
-
                                 <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
                                     <a href="{{ path('app_article_show', {'id': similar.id}) }}" class="text-nowrap text-sm font-semibold font-geist-mono leading-5 text-gray-900 group-hover:underline group-hover:underline-offset-4">{{ similar.code }}</a>
                                 </td>
-
                                 <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
                                     <p class="text-sm font-medium leading-5 text-gray-500">{{ similar.description }}</p>
                                 </td>
-
                                 <td class="px-6 py-4 border-b border-gray-200">
                                     <p class="text-nowrap text-sm font-semibold leading-5 text-gray-900 font-geist-mono whitespace-no-wrap">{{ similar.price|number_format(2, '.', '') }}&thinsp;&euro;</p>
-                                </td>
-
-                                <td class="px-6 py-4 text-sm font-medium leading-5 whitespace-no-wrap border-b border-gray-200">
-                                    <p class="text-nowrap text-sm font-medium leading-5 text-gray-900 whitespace-no-wrap">{{ similar.spreadsheetName }}</p>
                                 </td>
                             </tr>
                         {% else %}
