@@ -41,28 +41,17 @@
                             <i class="bx bx-bar-chart-square text-2xl"></i>
                             <span class="mx-3">Dashboard</span>
                         </a>
-                        <a href="#" class="flex items-center px-6 py-3 {% block savPage %}{% endblock %} transition-colors duration-300">
+                        <a href="{{ path("app_sav_index") }}" class="flex items-center px-6 py-3 {% block savPage %}{% endblock %} transition-colors duration-300">
                             <i class="bx bx-user-voice text-2xl"></i>
                             <span class="mx-3">SAV</span>
                         </a>
-                        <a href="#" class="flex items-center px-6 py-3 {% block clientPage %}{% endblock %} transition-colors duration-300">
+                        <a href="{{ path("app_client_index") }}" class="flex items-center px-6 py-3 {% block clientPage %}{% endblock %} transition-colors duration-300">
                             <i class="bx bx-group text-2xl"></i>
                             <span class="mx-3">Clients</span>
                         </a>
                         <a href="{{ path("app_article_index") }}" class="flex items-center px-6 py-3 {% block articlePage %}{% endblock %} transition-colors duration-300">
                             <i class="bx bx-news text-2xl"></i>
                             <span class="mx-3">Articles</span>
-                        </a>
-                        <a class="flex items-center px-6 py-3 text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100 transition-colors duration-300"
-                           href="#">
-                            <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                 stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                      d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z">
-                                </path>
-                            </svg>
-
-                            <span class="mx-3">Forms</span>
                         </a>
                     </nav>
                 </div>
