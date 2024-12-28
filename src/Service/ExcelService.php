@@ -4,10 +4,13 @@ namespace App\Service;
 
 use App\Entity\Article;
 use App\Entity\Client;
+use App\Entity\SAV;
+use App\Repository\ClientRepository;
 use PhpOffice\PhpSpreadsheet\Reader\Csv as ReaderCsv;
 use PhpOffice\PhpSpreadsheet\Reader\Ods as ReaderOds;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx as ReaderXlsx;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Shared\Date;
 
 class ExcelService
 {
@@ -114,5 +117,78 @@ class ExcelService
         }
 
         return $clients;
+    }
+
+    public function createSavs(Spreadsheet $spreadsheet, ClientRepository $clientRepository): array
+    {
+        $savs = [];
+        foreach ($spreadsheet->getWorksheetIterator() as $worksheet) {
+            foreach ($worksheet->getRowIterator() as $rowIndex => $row) {
+                $worksheetTitle = $worksheet->getTitle();
+                if ($rowIndex > 1) {
+                    $cellIterator = $row->getCellIterator();
+                    $cellIterator->setIterateOnlyExistingCells(false);
+
+                    $data = [];
+                    foreach ($cellIterator as $cell) {
+                        $data[] = $cell->getValue();
+                    }
+
+                    if (count($data) >= 13 && $data[0] !== null) {
+                        $sav = new SAV();
+                        if ($data[1] !== null) {
+                            $createdDate = Date::excelToDateTimeObject($data[1]);
+                            $sav->setCreatedDate($createdDate);
+                        }
+                        if ($data[5] !== null) {
+                            $sav->setRepresentative($data[5]);
+                        }
+                        if ($data[6] !== null) {
+                            $breakdown = $data[6];
+                            if (strlen($breakdown) > 255) {
+                                $breakdown = substr($breakdown, 0, 252);
+                                $breakdown .= "...";
+                            }
+
+                            $sav->setBreakdown($breakdown);
+                        }
+                        if ($data[7] !== null) {
+                            $endDate = Date::excelToDateTimeObject($data[7]);
+                            $sav->setEndDate($endDate);
+                        }
+                        if ($data[8] !== null) {
+                            $sav->setRepairedBy($data[8]);
+                        }
+                        if ($data[9] !== null) {
+                            $repairs = $data[9];
+                            if (strlen($repairs) > 255) {
+                                $repairs = substr($repairs, 0, 252);
+                                $repairs .= "...";
+                            }
+
+                            $sav->setRepairs($repairs);
+                        }
+                        if ($data[10] !== null) {
+                            $sav->setComments($data[10]);
+                        }
+                        if ($data[11] !== null) {
+                            $sav->setCharge($data[11]);
+                        }
+                        if ($data[12] !== null) {
+                            $code = $data[12];
+                            $sav->setCode($code);
+
+                            $client = $clientRepository->findOneBy(['code' => $code]);
+                            $client->addSAV($sav);
+                        }
+                        $sav->setSpreadsheetName($worksheetTitle);
+
+                        $savs[] = $sav;
+                    }
+                }
+            }
+        }
+
+        return $savs;
     }
 }
