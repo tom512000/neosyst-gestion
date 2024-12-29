@@ -50,13 +50,10 @@
                                         <i class="bx bx-edit text-lg text-gray-800 group-hover/edit:text-white mr-3"></i>
                                         <p class="font-lexend text-gray-800 group-hover/edit:text-white">Modifier</p>
                                     </a>
-                                    <form method="post" action="{{ path('app_article_delete', {'id': article.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer l\'article ?');" class="text-sm text-gray-700 hover:bg-red-500 hover:text-white">
-                                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ article.id) }}">
-                                        <button class="flex items-center w-full h-full px-4 py-2 group/delete">
-                                            <i class="bx bx-trash text-lg text-gray-800 group-hover/delete:text-white mr-3"></i>
-                                            <p class="font-lexend text-gray-800 group-hover/delete:text-white">Supprimer</p>
-                                        </button>
-                                    </form>
+                                    <a href="{{ path('app_article_confirm_delete', {'id': article.id}) }}" class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-red-500 hover:text-white group/delete">
+                                        <i class="bx bx-trash text-lg text-gray-800 group-hover/delete:text-white mr-3"></i>
+                                        <p class="font-lexend text-gray-800 group-hover/delete:text-white">Supprimer</p>
+                                    </a>
                                 </div>
                             </div>
                         </div>

@@ -95,12 +95,22 @@ final class ArticleController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_article_delete', methods: ['POST'])]
+    #[Route('/{id}/confirm-delete', name: 'app_article_confirm_delete', methods: ['GET'])]
+    public function confirmDelete(Article $article): Response
+    {
+        return $this->render('article/confirm_delete.html.twig', [
+            'article' => $article,
+        ]);
+    }
+
+    #[Route('/{id}/delete', name: 'app_article_delete', methods: ['POST'])]
     public function delete(Request $request, Article $article, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$article->getId(), $request->getPayload()->getString('_token'))) {
             $entityManager->remove($article);
             $entityManager->flush();
+
+            $this->addFlash('success', 'L\'article a été supprimé avec succès.');
         }
 
         return $this->redirectToRoute('app_article_index', [], Response::HTTP_SEE_OTHER);
