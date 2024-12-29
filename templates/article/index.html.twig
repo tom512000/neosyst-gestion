@@ -30,7 +30,7 @@
         <div class="flex flex-wrap -mx-6">
             <div class="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 lg:grid-cols-3 lg:gap-8 mx-6 my-2">
                 {% for article in pagination %}
-                    <div class="group block overflow-hidden bg-white shadow-sm rounded-md relative">
+                    <div class="group/article block overflow-hidden bg-white shadow-sm rounded-md relative">
                     <div class="relative">
                         {% if article.picture != "" %}
                             <img src="{{ asset('uploads/' ~ article.picture) }}" alt="Article {{ article.id }}" class="h-[250px] w-full object-cover sm:h-[350px]" />
@@ -38,7 +38,7 @@
                             <img src="{{ asset('images/default-image-article.png') }}" alt="Article {{ article.id }}" class="h-[250px] w-full object-cover sm:h-[350px]" />
                         {% endif %}
                             <div x-data="{ dropdownOpen: false }" class="absolute top-2 right-3.5 z-50">
-                                <i @click="dropdownOpen = !dropdownOpen" class="bx bx-dots-horizontal-rounded text-2xl text-gray-800 bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 cursor-pointer"></i>
+                                <i @click="dropdownOpen = !dropdownOpen" class="bx bx-dots-horizontal-rounded text-2xl text-gray-800 bg-opacity-50 opacity-0 group-hover/article:opacity-100 transition-opacity duration-300 cursor-pointer"></i>
                                 <div x-show="dropdownOpen"
                                      @click="dropdownOpen = false"
                                      class="fixed inset-0 dropdown-overlay z-10 w-full h-full"
@@ -46,15 +46,15 @@
                                 <div x-show="dropdownOpen"
                                      class="absolute right-0 z-10 w-48 overflow-hidden bg-white rounded-md shadow-xl"
                                      x-cloak>
-                                    <a href="{{ path('app_article_edit', {'id': article.id}) }}" class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-indigo-600 hover:text-white">
-                                        <i class="bx bx-edit text-lg text-gray-400 mr-3"></i>
-                                        <p class="font-lexend">Modifier</p>
+                                    <a href="{{ path('app_article_edit', {'id': article.id}) }}" class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-indigo-600 group/edit">
+                                        <i class="bx bx-edit text-lg text-gray-800 group-hover/edit:text-white mr-3"></i>
+                                        <p class="font-lexend text-gray-800 group-hover/edit:text-white">Modifier</p>
                                     </a>
-                                    <form method="post" action="{{ path('app_article_delete', {'id': article.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer l\'article ?');" class="text-sm text-gray-700 hover:bg-indigo-600 hover:text-white">
+                                    <form method="post" action="{{ path('app_article_delete', {'id': article.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer l\'article ?');" class="text-sm text-gray-700 hover:bg-red-500 hover:text-white">
                                         <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ article.id) }}">
-                                        <button class="flex items-center w-full h-full px-4 py-2">
-                                            <i class="bx bx-trash text-lg text-gray-400 mr-3"></i>
-                                            <p class="font-lexend">Supprimer</p>
+                                        <button class="flex items-center w-full h-full px-4 py-2 group/delete">
+                                            <i class="bx bx-trash text-lg text-gray-800 group-hover/delete:text-white mr-3"></i>
+                                            <p class="font-lexend text-gray-800 group-hover/delete:text-white">Supprimer</p>
                                         </button>
                                     </form>
                                 </div>
@@ -63,7 +63,7 @@
                         <div class="p-4">
                             <div class="flex justify-between items-center">
                                 <a href="{{ path('app_article_show', {'id': article.id}) }}">
-                                    <h3 class="text-gray-900 font-geist-mono group-hover:underline group-hover:underline-offset-4 text-lg">{{ article.code }}</h3>
+                                    <h3 class="text-gray-900 font-geist-mono group-hover/article:underline group-hover/article:underline-offset-4 text-lg">{{ article.code }}</h3>
                                 </a>
                                 <p class="text-gray-900 font-geist-mono font-bold">{{ article.price|number_format(2, '.', '') }}&thinsp;&euro;</p>
                             </div>
