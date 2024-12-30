@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\ArticleRepository;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ArticleRepository::class)]
@@ -28,6 +29,17 @@ class Article
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $picture = null;
 
+    #[ORM\Column(type: Types::DATE_MUTABLE)]
+    private ?\DateTimeInterface $createdDate;
+
+    #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $editedDate = null;
+
+    public function __construct()
+    {
+        $this->createdDate = new \DateTime();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -41,6 +53,7 @@ class Article
     public function setCode(string $code): static
     {
         $this->code = $code;
+        $this->editedDate = new \DateTime();
 
         return $this;
     }
@@ -53,6 +66,7 @@ class Article
     public function setDescription(string $description): static
     {
         $this->description = $description;
+        $this->editedDate = new \DateTime();
 
         return $this;
     }
@@ -65,6 +79,7 @@ class Article
     public function setPrice(float $price): static
     {
         $this->price = $price;
+        $this->editedDate = new \DateTime();
 
         return $this;
     }
@@ -77,6 +92,7 @@ class Article
     public function setSpreadsheetName(string $spreadsheetName): static
     {
         $this->spreadsheetName = $spreadsheetName;
+        $this->editedDate = new \DateTime();
 
         return $this;
     }
@@ -89,6 +105,31 @@ class Article
     public function setPicture(?string $picture): static
     {
         $this->picture = $picture;
+        $this->editedDate = new \DateTime();
+
+        return $this;
+    }
+
+    public function getCreatedDate(): ?\DateTimeInterface
+    {
+        return $this->createdDate;
+    }
+
+    public function setCreatedDate(\DateTimeInterface $createdDate): static
+    {
+        $this->createdDate = $createdDate;
+
+        return $this;
+    }
+
+    public function getEditedDate(): ?\DateTimeInterface
+    {
+        return $this->editedDate;
+    }
+
+    public function setEditedDate(?\DateTimeInterface $editedDate): static
+    {
+        $this->editedDate = $editedDate;
 
         return $this;
     }
