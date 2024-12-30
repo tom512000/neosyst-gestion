@@ -18,11 +18,12 @@ final class ArticleController extends AbstractController
     #[Route(name: 'app_article_index', methods: ['GET'])]
     public function index(ArticleRepository $articleRepository, PaginatorInterface $paginator, Request $request): Response
     {
+        $query = $request->query->get('search-article');
         $currentPage = $request->query->getInt('page', 1);
         $itemsPerPage = 15;
 
         $pagination = $paginator->paginate(
-            $articleRepository->findAll(),
+            $articleRepository->findBySearchQuery($query),
             $currentPage,
             $itemsPerPage
         );

@@ -34,4 +34,13 @@ class ArticleRepository extends ServiceEntityRepository
 
         return array_slice(array_column($results, 'article'), 0, $limit);
     }
+
+    public function findBySearchQuery(?string $query): array
+    {
+        return $this->createQueryBuilder('a')
+            ->where('a.code LIKE :query OR a.description LIKE :query')
+            ->setParameter('query', '%'.$query.'%')
+            ->getQuery()
+            ->getResult();
+    }
 }
