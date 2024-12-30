@@ -49,10 +49,12 @@ class ExcelService
 
                     if (count($data) >= 3) {
                         $article = new Article();
+                        $article->disableTracking();
                         $article->setCode($data[0]);
                         $article->setDescription($data[1]);
                         $article->setPrice($data[2]);
                         $article->setSpreadsheetName($worksheetTitle);
+                        $article->enableTracking();
 
                         $articles[] = $article;
                     }

@@ -64,7 +64,7 @@
                                 <span class="font-medium">Veiller à ce que ces exigences soient respectées :</span>
                                 <ul class="mt-1.5 list-disc list-inside">
                                     {% for error in form.description.vars.errors %}
-                                        <li>{{ error.message }}</li>
+                                        <li>{{ error.message }}.</li>
                                     {% endfor %}
                                 </ul>
                             </div>
@@ -90,7 +90,7 @@
                                 <span class="font-medium">Veiller à ce que ces exigences soient respectées :</span>
                                 <ul class="mt-1.5 list-disc list-inside">
                                     {% for error in form.price.vars.errors %}
-                                        <li>{{ error.message }}</li>
+                                        <li>{{ error.message }}.</li>
                                     {% endfor %}
                                 </ul>
                             </div>
@@ -118,7 +118,7 @@
                                 <span class="font-medium">Veiller à ce que ces exigences soient respectées :</span>
                                 <ul class="mt-1.5 list-disc list-inside">
                                     {% for error in form.picture.vars.errors %}
-                                        <li>{{ error.message }}</li>
+                                        <li>{{ error.message }}.</li>
                                     {% endfor %}
                                 </ul>
                             </div>

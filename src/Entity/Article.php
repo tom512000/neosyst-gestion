@@ -35,6 +35,8 @@ class Article
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $editedDate = null;
 
+    private bool $trackChanges = true;
+
     public function __construct()
     {
         $this->createdDate = new \DateTime();
@@ -53,7 +55,10 @@ class Article
     public function setCode(string $code): static
     {
         $this->code = $code;
-        $this->editedDate = new \DateTime();
+
+        if ($this->trackChanges) {
+            $this->editedDate = new \DateTime();
+        }
 
         return $this;
     }
@@ -66,7 +71,10 @@ class Article
     public function setDescription(string $description): static
     {
         $this->description = $description;
-        $this->editedDate = new \DateTime();
+
+        if ($this->trackChanges) {
+            $this->editedDate = new \DateTime();
+        }
 
         return $this;
     }
@@ -79,7 +87,10 @@ class Article
     public function setPrice(float $price): static
     {
         $this->price = $price;
-        $this->editedDate = new \DateTime();
+
+        if ($this->trackChanges) {
+            $this->editedDate = new \DateTime();
+        }
 
         return $this;
     }
@@ -92,7 +103,6 @@ class Article
     public function setSpreadsheetName(string $spreadsheetName): static
     {
         $this->spreadsheetName = $spreadsheetName;
-        $this->editedDate = new \DateTime();
 
         return $this;
     }
@@ -105,7 +115,10 @@ class Article
     public function setPicture(?string $picture): static
     {
         $this->picture = $picture;
-        $this->editedDate = new \DateTime();
+
+        if ($this->trackChanges) {
+            $this->editedDate = new \DateTime();
+        }
 
         return $this;
     }
@@ -132,5 +145,15 @@ class Article
         $this->editedDate = $editedDate;
 
         return $this;
+    }
+
+    public function disableTracking(): void
+    {
+        $this->trackChanges = false;
+    }
+
+    public function enableTracking(): void
+    {
+        $this->trackChanges = true;
     }
 }
