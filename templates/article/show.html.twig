@@ -8,15 +8,12 @@
 {% block header %}
     <div class="w-full flex justify-between items-center">
         <div class="flex">
-            <h3 class="text-3xl font-medium text-gray-700 font-lexend">Articles</h3>
-            <p class="flex items-center font-light text-gray-700 font-lexend mt-2.5">&ensp;{{ article.code }}</p>
+            <h3 class="text-3xl font-medium text-gray-700 font-lexend">Article {{ article.code }}</h3>
+            <p class="flex items-center font-light text-gray-700 font-lexend mt-2.5">&ensp;Informations</p>
         </div>
         <div class="inline-flex">
             <a href="{{ path('app_article_edit', {'id': article.id}) }}" class="bg-indigo-600 hover:bg-indigo-800 text-white text-sm font-medium pt-2.5 pb-2.5 px-4 rounded-l">Modifier</a>
-            <form method="post" action="{{ path('app_article_delete', {'id': article.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer l\'article ?');" class="bg-red-600 hover:bg-red-800 text-white text-sm font-medium rounded-r">
-                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ article.id) }}">
-                <button class="w-full h-full pt-2.5 pb-2.5 px-4">Supprimer</button>
-            </form>
+            <a href="{{ path('app_article_confirm_delete', {'id': article.id}) }}" class="bg-red-600 hover:bg-red-800 text-white text-sm font-medium pt-2.5 pb-2.5 px-4 rounded-r">Supprimer</a>
         </div>
     </div>
 {% endblock %}
