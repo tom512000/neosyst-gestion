@@ -28,7 +28,22 @@
                             'id': 'code'
                         }
                     }) }}
-                    {{ form_errors(form.code) }}
+                    {% if form.code.vars.errors|length > 0 %}
+                        <div class="flex p-4 my-4 text-sm text-red-800 rounded-lg bg-red-50" role="alert">
+                            <svg class="flex-shrink-0 inline w-4 h-4 me-3 mt-[2px]" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"></path>
+                            </svg>
+                            <span class="sr-only">Danger</span>
+                            <div>
+                                <span class="font-medium">Veiller à ce que ces exigences soient respectées :</span>
+                                <ul class="mt-1.5 list-disc list-inside">
+                                    {% for error in form.code.vars.errors %}
+                                        <li>{{ error.message }}.</li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                    {% endif %}
                 </div>
                 <div>
                     {{ form_label(form.description, 'Description', {'label_attr': {'class': 'sr-only'}}) }}
@@ -39,7 +54,22 @@
                             'id': 'description'
                         }
                     }) }}
-                    {{ form_errors(form.description) }}
+                    {% if form.description.vars.errors|length > 0 %}
+                        <div class="flex p-4 my-4 text-sm text-red-800 rounded-lg bg-red-50" role="alert">
+                            <svg class="flex-shrink-0 inline w-4 h-4 me-3 mt-[2px]" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"></path>
+                            </svg>
+                            <span class="sr-only">Danger</span>
+                            <div>
+                                <span class="font-medium">Veiller à ce que ces exigences soient respectées :</span>
+                                <ul class="mt-1.5 list-disc list-inside">
+                                    {% for error in form.description.vars.errors %}
+                                        <li>{{ error.message }}</li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                    {% endif %}
                 </div>
                 <div>
                     {{ form_label(form.price, 'Prix', {'label_attr': {'class': 'sr-only'}}) }}
@@ -50,7 +80,22 @@
                             'id': 'price'
                         }
                     }) }}
-                    {{ form_errors(form.price) }}
+                    {% if form.price.vars.errors|length > 0 %}
+                        <div class="flex p-4 my-4 text-sm text-red-800 rounded-lg bg-red-50" role="alert">
+                            <svg class="flex-shrink-0 inline w-4 h-4 me-3 mt-[2px]" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"></path>
+                            </svg>
+                            <span class="sr-only">Danger</span>
+                            <div>
+                                <span class="font-medium">Veiller à ce que ces exigences soient respectées :</span>
+                                <ul class="mt-1.5 list-disc list-inside">
+                                    {% for error in form.price.vars.errors %}
+                                        <li>{{ error.message }}</li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                    {% endif %}
                 </div>
                 <div class="w-full flex justify-between items-center text-gray-700 p-2 border border-gray-300 rounded-md font-lexend font-light text-base">
                     {{ form_label(form.picture, 'Image', {'label_attr': {'class': 'sr-only'}}) }}
@@ -63,7 +108,22 @@
                         <p class="mr-3 font-lexend font-light text-base">Image par défaut :</p>
                         <img src="{{ asset('images/default-image-article.png') }}" alt="Image par défaut" class="w-8 h-8 rounded-md" />
                     </div>
-                    {{ form_errors(form.picture) }}
+                    {% if form.picture.vars.errors|length > 0 %}
+                        <div class="flex p-4 my-4 text-sm text-red-800 rounded-lg bg-red-50" role="alert">
+                            <svg class="flex-shrink-0 inline w-4 h-4 me-3 mt-[2px]" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"></path>
+                            </svg>
+                            <span class="sr-only">Danger</span>
+                            <div>
+                                <span class="font-medium">Veiller à ce que ces exigences soient respectées :</span>
+                                <ul class="mt-1.5 list-disc list-inside">
+                                    {% for error in form.picture.vars.errors %}
+                                        <li>{{ error.message }}</li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                    {% endif %}
                 </div>
                 <button class="btn bg-indigo-600 text-white rounded-md px-4 py-2 hover:bg-indigo-700 font-lexend text-base transition-all duration-300">
                     {{ button_label|default('Valider') }}

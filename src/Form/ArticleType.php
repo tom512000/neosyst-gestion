@@ -13,6 +13,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Constraints\PositiveOrZero;
 
 class ArticleType extends AbstractType
 {
@@ -47,6 +48,7 @@ class ArticleType extends AbstractType
                 ],
                 'constraints' => [
                     new NotBlank(['message' => 'Le prix ne doit pas être vide']),
+                    new PositiveOrZero(['message' => 'Le prix doit être positif ou nul']),
                 ],
             ])
             ->add('picture', FileType::class, [
