@@ -1,9 +1,75 @@
 {% extends 'base.html.twig' %}
 
-{% block body %}
-    <h1>Create new Article</h1>
+{% block homePage %}text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100{% endblock %}
+{% block savPage %}text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100{% endblock %}
+{% block clientPage %}text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100{% endblock %}
+{% block articlePage %}text-gray-100 bg-gray-700 bg-opacity-25{% endblock %}
 
-    {{ include('article/_form.html.twig') }}
+{% block header %}
+    <div class="w-full flex justify-between items-center">
+        <div class="flex">
+            <h3 class="text-3xl font-medium text-gray-700 font-lexend">Article</h3>
+            <p class="flex items-center font-light text-gray-700 font-lexend mt-2.5">&ensp;Création</p>
+        </div>
+    </div>
+{% endblock %}
 
-    <a href="{{ path('app_article_index') }}">back to list</a>
+{% block main %}
+    <main class="flex-1 overflow-x-hidden overflow-y-auto bg-gray-200">
+        <div class="container px-6 py-6 mx-auto">
+            {{ form_start(form, {'attr': {'class': 'space-y-6'}}) }}
+            <div class="space-y-4 rounded-lg bg-white p-8 shadow-lg">
+                <div>
+                    {{ form_label(form.code, 'Code', {'label_attr': {'class': 'sr-only'}}) }}
+                    {{ form_widget(form.code, {
+                        'attr': {
+                            'class': 'w-full rounded-lg border-gray-200 p-3 font-lexend font-light text-base',
+                            'placeholder': 'Code',
+                            'id': 'code'
+                        }
+                    }) }}
+                    {{ form_errors(form.code) }}
+                </div>
+                <div>
+                    {{ form_label(form.description, 'Description', {'label_attr': {'class': 'sr-only'}}) }}
+                    {{ form_widget(form.description, {
+                        'attr': {
+                            'class': 'w-full min-h-[150px] rounded-lg border-gray-200 p-3 font-lexend font-light text-base',
+                            'placeholder': 'Description',
+                            'id': 'description'
+                        }
+                    }) }}
+                    {{ form_errors(form.description) }}
+                </div>
+                <div>
+                    {{ form_label(form.price, 'Prix', {'label_attr': {'class': 'sr-only'}}) }}
+                    {{ form_widget(form.price, {
+                        'attr': {
+                            'class': 'w-full rounded-lg border-gray-200 p-3 font-lexend font-light text-base',
+                            'placeholder': 'Prix',
+                            'id': 'price'
+                        }
+                    }) }}
+                    {{ form_errors(form.price) }}
+                </div>
+                <div class="w-full flex justify-between items-center text-gray-700 p-2 border border-gray-300 rounded-md font-lexend font-light text-base">
+                    {{ form_label(form.picture, 'Image', {'label_attr': {'class': 'sr-only'}}) }}
+                    {{ form_widget(form.picture, {
+                        'attr': {
+                            'class': 'file-input ml-1 block font-lexend font-light text-base',
+                        }
+                    }) }}
+                    <div class="flex items-center">
+                        <p class="mr-3 font-lexend font-light text-base">Image par défaut :</p>
+                        <img src="{{ asset('images/default-image-article.png') }}" alt="Image par défaut" class="w-8 h-8 rounded-md" />
+                    </div>
+                    {{ form_errors(form.picture) }}
+                </div>
+                <button class="btn bg-indigo-600 text-white rounded-md px-4 py-2 hover:bg-indigo-700 font-lexend text-base transition-all duration-300">
+                    {{ button_label|default('Valider') }}
+                </button>
+            </div>
+            {{ form_end(form) }}
+        </div>
+    </main>
 {% endblock %}
