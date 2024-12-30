@@ -44,7 +44,7 @@ class SAV
     #[ORM\Column(length: 50)]
     private ?string $spreadsheetName = null;
 
-    #[ORM\ManyToOne(inversedBy: 'savs')]
+    #[ORM\ManyToOne(inversedBy: 'sAVs')]
     private ?Client $client = null;
 
     public function getId(): ?int
