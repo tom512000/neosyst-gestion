@@ -18,11 +18,12 @@ final class ClientController extends AbstractController
     #[Route(name: 'app_client_index', methods: ['GET'])]
     public function index(ClientRepository $clientRepository, PaginatorInterface $paginator, Request $request): Response
     {
+        $query = $request->query->get('search-client');
         $currentPage = $request->query->getInt('page', 1);
         $itemsPerPage = 20;
 
         $pagination = $paginator->paginate(
-            $clientRepository->findAll(),
+            $clientRepository->findBySearchQuery($query),
             $currentPage,
             $itemsPerPage
         );

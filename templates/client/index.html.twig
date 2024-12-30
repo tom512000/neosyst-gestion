@@ -15,6 +15,15 @@
             <h3 class="text-3xl font-medium text-gray-700 font-lexend">Clients</h3>
             <p class="flex items-center font-light text-gray-700 font-lexend mt-1.5">&ensp;({{ totalDisplayed }} sur {{ totalClient }})</p>
         </div>
+        <form action="{{ path('app_client_index') }}" method="get" class="relative">
+            <input type="text" name="search-client" value="{{ app.request.query.get('search-client') }}" placeholder="Rechercher..." aria-label="search-client" class="appearance-none border-2 pl-10 border-gray-300 hover:border-gray-400 transition-colors rounded-md w-full py-2 px-3 font-lexend text-gray-800 leading-tight focus:outline-none focus:ring-indigo-600 focus:border-indigo-600 focus:shadow-outline" />
+            <a href="{{ path('app_client_index') }}" class="absolute right-0 inset-y-0 flex items-center">
+                <i class="bx bx-x text-2xl ml-3 mr-2 text-gray-400 hover:text-gray-500"></i>
+            </a>
+            <button type="submit" class="absolute left-0 inset-y-0 flex items-center">
+                <i class="bx bx-search text-xl mx-3 text-gray-400 hover:text-gray-500"></i>
+            </button>
+        </form>
         <a href="{{ path('app_client_new') }}" class="relative inline-flex items-center justify-center p-[1px] overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-indigo-600 group-hover:bg-indigo-600 hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300">
             <span class="relative flex justify-center items-center px-2 py-1.5 transition-all ease-in duration-75 bg-white text-sm font-lexend rounded-md group-hover:bg-opacity-0">
                 <i class="bx bx-plus text-xl mr-1.5"></i>
@@ -45,21 +54,39 @@
                                 </td>
                                 <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
                                     {% if client.phoneNumber %}
-                                        <p class="text-sm font-medium leading-5 text-gray-500">{{ client.phoneNumber }}</p>
+                                        {% set formattedPhoneNumber = client.phoneNumber|slice(0, 2) ~ ' ' ~
+                                            client.phoneNumber|slice(2, 2) ~ ' ' ~
+                                            client.phoneNumber|slice(4, 2) ~ ' ' ~
+                                            client.phoneNumber|slice(6, 2) ~ ' ' ~
+                                            client.phoneNumber|slice(8, 2)
+                                        %}
+                                        <p class="text-sm font-medium leading-5 text-gray-500">{{ formattedPhoneNumber }}</p>
                                     {% else %}
                                         <i class="bx bx-x text-xl text-gray-500"></i>
                                     {% endif %}
                                 </td>
                                 <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
                                     {% if client.mobileNumber %}
-                                        <p class="text-sm font-medium leading-5 text-gray-500">{{ client.mobileNumber }}</p>
+                                        {% set formattedMobileNumber = client.mobileNumber|slice(0, 2) ~ ' ' ~
+                                            client.mobileNumber|slice(2, 2) ~ ' ' ~
+                                            client.mobileNumber|slice(4, 2) ~ ' ' ~
+                                            client.mobileNumber|slice(6, 2) ~ ' ' ~
+                                            client.mobileNumber|slice(8, 2)
+                                        %}
+                                        <p class="text-sm font-medium leading-5 text-gray-500">{{ formattedMobileNumber }}</p>
                                     {% else %}
                                         <i class="bx bx-x text-xl text-gray-500"></i>
                                     {% endif %}
                                 </td>
                                 <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
                                     {% if client.faxNumber %}
-                                        <p class="text-sm font-medium leading-5 text-gray-500">{{ client.faxNumber }}</p>
+                                        {% set formattedFaxNumber = client.faxNumber|slice(0, 2) ~ ' ' ~
+                                            client.faxNumber|slice(2, 2) ~ ' ' ~
+                                            client.faxNumber|slice(4, 2) ~ ' ' ~
+                                            client.faxNumber|slice(6, 2) ~ ' ' ~
+                                            client.faxNumber|slice(8, 2)
+                                        %}
+                                        <p class="text-sm font-medium leading-5 text-gray-500">{{ formattedFaxNumber }}</p>
                                     {% else %}
                                         <i class="bx bx-x text-xl text-gray-500"></i>
                                     {% endif %}
