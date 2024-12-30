@@ -22,7 +22,7 @@ class Article
     #[ORM\Column]
     private ?float $price = null;
 
-    #[ORM\Column(length: 50)]
+    #[ORM\Column(length: 50, nullable: true)]
     private ?string $spreadsheetName = null;
 
     #[ORM\Column(length: 255, nullable: true)]
