@@ -1,6 +1,101 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Client{% endblock %}
+{% block homePage %}text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100{% endblock %}
+{% block savPage %}text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100{% endblock %}
+{% block clientPage %}text-gray-100 bg-gray-700 bg-opacity-25{% endblock %}
+{% block articlePage %}text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100{% endblock %}
+
+{% block header %}
+    <div class="w-full flex justify-between items-center">
+        <div class="flex">
+            <h3 class="text-3xl font-medium text-gray-700 font-lexend">Client {{ client.code }}</h3>
+            <p class="flex items-center font-light text-gray-700 font-lexend mt-2.5">&ensp;Informations</p>
+        </div>
+        <div class="inline-flex">
+            <a href="{{ path('app_client_edit', {'id': client.id}) }}" class="bg-indigo-600 hover:bg-indigo-800 text-white text-sm font-medium pt-2.5 pb-2.5 px-4 rounded-l">Modifier</a>
+            <a href="{{ path('app_client_confirm_delete', {'id': client.id}) }}" class="bg-red-600 hover:bg-red-800 text-white text-sm font-medium pt-2.5 pb-2.5 px-4 rounded-r">Supprimer</a>
+        </div>
+    </div>
+{% endblock %}
+
+{% block main %}
+    <main class="flex-1 overflow-x-hidden overflow-y-auto bg-gray-200">
+        <div class="container px-6 py-6 mx-auto">
+            <div class="w-full mx-auto bg-indigo-600 shadow-lg rounded-lg">
+                <div class="px-6 py-5">
+                    <div class="flex items-start">
+                        <div class="flex-grow truncate">
+                            <div class="w-full sm:flex justify-between items-center mb-3">
+                                <h2 class="text-2xl leading-snug font-extrabold text-gray-50 truncate mb-1 sm:mb-0">{{ client.name }}</h2>
+                                <div class="flex-shrink-0 flex items-center space-x-3 sm:ml-2">
+                                    <div class="flex items-center text-left text-sm font-medium text-indigo-100 hover:text-white group focus:outline-none focus-visible:border-b focus-visible:border-indigo-100">
+                                        <i class="bx bx-id-card text-xl flex-shrink-0 mr-1 fill-current text-gray-300 group-hover:text-gray-200"></i>
+                                        <span>{{ client.id }} <span class="sr-only">likes</span></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flex items-end justify-between whitespace-normal">
+                                <div class="text-indigo-100">
+                                    <div class="flex items-center">
+                                        <i class="bx bxs-phone text-lg mr-3 text-indigo-200"></i>
+                                        <span>{{ client.phoneNumber ?? 'Pas de numéro de téléphone' }}</span>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <i class="bx bxs-mobile text-lg mr-3 text-indigo-200"></i>
+                                        <span>{{ client.mobileNumber ?? 'Pas de numéro de mobile' }}</span>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <i class="bx bxs-printer text-lg mr-3 text-indigo-200"></i>
+                                        <span>{{ client.faxNumber ?? 'Pas de numéro de fax' }}</span>
+                                    </div>
+                                </div>
+                                <a href="#savs" class="flex-shrink-0 flex items-center justify-center text-indigo-600 w-10 h-10 ml-2 rounded-full bg-gradient-to-b from-indigo-50 to-indigo-100 hover:from-white hover:to-indigo-50 focus:outline-none focus-visible:from-white focus-visible:to-white transition-colors duration-300">
+                                    <span class="block font-bold">
+                                        <span class="sr-only">Read more</span>
+                                        <i class="bx bxs-chevron-down flex justify-center items-center text-2xl"></i>
+                                    </span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-8">
+                <div class="flex">
+                    <h3 class="text-3xl font-medium text-gray-700 font-lexend">SAV(s)</h3>
+                    <p class="flex items-center font-light text-gray-700 font-lexend mt-2.5">&ensp;{{ client.sAVs|length }} disponible(s)</p>
+                </div>
+            </div>
+            <div class="mt-4">
+                {% for sav in client.sAVs %}
+                    <div class="bg-gray-100 mb-4 p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
+                        <div class="flex text-gray-700 space-y-2">
+                            <div class="w-1/2 h-full">
+                                <p><span class="font-semibold">Code d'intervention :</span> {{ sav.code ?? 'Non spécifié' }}</p>
+                                <p><span class="font-semibold">Créé le :</span> {{ sav.createdDate ? sav.createdDate|date('d/m/Y') : 'Non spécifié' }}</p>
+                                <p><span class="font-semibold">Représentant :</span> {{ sav.representative ?? 'Non spécifié' }}</p>
+                                <p><span class="text-justify font-semibold">Panne :</span> {{ sav.breakdown ?? 'Non spécifié' }}</p>
+                                <p><span class="font-semibold">Prévu pour le :</span> {{ sav.endDate ? sav.endDate|date('d/m/Y') : 'Non spécifié' }}</p>
+                            </div>
+                            <div class="w-1/2 h-full ml-3">
+                                <p><span class="font-semibold">Réparé par :</span> {{ sav.repairedBy ?? 'Non spécifié' }}</p>
+                                <p><span class="text-justify font-semibold">Réparations :</span> {{ sav.breakdown ?? 'Non spécifié' }}</p>
+                                <p><span class="text-justify font-semibold">Observations :</span> {{ sav.repairs ?? 'Aucun' }}</p>
+                                <p><span class="font-semibold">Coût :</span> {{ sav.charge is not empty and sav.charge != 'NONE' ? sav.charge ~ ' €' : 'Non spécifié' }}</p>
+                            </div>
+                        </div>
+                        <a href="{{ path('app_sav_show', {'id': sav.id}) }}" class="mt-3 inline-block text-indigo-500 hover:text-indigo-700 font-medium">
+                            Voir les détails →
+                        </a>
+                    </div>
+                {% else %}
+                    <p class="text-gray-500">Aucun SAV trouvé pour ce client.</p>
+                {% endfor %}
+            </div>
+        </div>
+    </main>
+{% endblock %}
 
 {% block body %}
     <h1>Client</h1>

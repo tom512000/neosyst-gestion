@@ -83,12 +83,22 @@ final class ClientController extends AbstractController
         ]);
     }
 
+    #[Route('/{id}/confirm-delete', name: 'app_client_confirm_delete', methods: ['GET'])]
+    public function confirmDelete(Client $client): Response
+    {
+        return $this->render('client/confirm_delete.html.twig', [
+            'client' => $client,
+        ]);
+    }
+
     #[Route('/{id}', name: 'app_client_delete', methods: ['POST'])]
     public function delete(Request $request, Client $client, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$client->getId(), $request->getPayload()->getString('_token'))) {
             $entityManager->remove($client);
             $entityManager->flush();
+
+            $this->addFlash('success', 'Le client a été supprimé avec succès.');
         }
 
         return $this->redirectToRoute('app_client_index', [], Response::HTTP_SEE_OTHER);
