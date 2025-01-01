@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\ClientRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ClientRepository::class)]
@@ -39,9 +40,18 @@ class Client
     #[ORM\Column(length: 50)]
     private ?string $spreadsheetName = null;
 
+    #[ORM\Column(type: Types::DATE_MUTABLE)]
+    private ?\DateTimeInterface $createdDate = null;
+
+    #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $editedDate = null;
+
+    private bool $trackChanges = true;
+
     public function __construct()
     {
         $this->sAVs = new ArrayCollection();
+        $this->createdDate = new \DateTime();
     }
 
     public function getId(): ?int
@@ -58,6 +68,10 @@ class Client
     {
         $this->code = $code;
 
+        if ($this->trackChanges) {
+            $this->editedDate = new \DateTime();
+        }
+
         return $this;
     }
 
@@ -69,6 +83,10 @@ class Client
     public function setName(string $name): static
     {
         $this->name = $name;
+
+        if ($this->trackChanges) {
+            $this->editedDate = new \DateTime();
+        }
 
         return $this;
     }
@@ -82,6 +100,10 @@ class Client
     {
         $this->phoneNumber = $phoneNumber;
 
+        if ($this->trackChanges) {
+            $this->editedDate = new \DateTime();
+        }
+
         return $this;
     }
 
@@ -94,6 +116,10 @@ class Client
     {
         $this->mobileNumber = $mobileNumber;
 
+        if ($this->trackChanges) {
+            $this->editedDate = new \DateTime();
+        }
+
         return $this;
     }
 
@@ -105,6 +131,10 @@ class Client
     public function setFaxNumber(?string $faxNumber): static
     {
         $this->faxNumber = $faxNumber;
+
+        if ($this->trackChanges) {
+            $this->editedDate = new \DateTime();
+        }
 
         return $this;
     }
@@ -149,5 +179,39 @@ class Client
         $this->spreadsheetName = $spreadsheetName;
 
         return $this;
+    }
+
+    public function getCreatedDate(): ?\DateTimeInterface
+    {
+        return $this->createdDate;
+    }
+
+    public function setCreatedDate(\DateTimeInterface $createdDate): static
+    {
+        $this->createdDate = $createdDate;
+
+        return $this;
+    }
+
+    public function getEditedDate(): ?\DateTimeInterface
+    {
+        return $this->editedDate;
+    }
+
+    public function setEditedDate(?\DateTimeInterface $editedDate): static
+    {
+        $this->editedDate = $editedDate;
+
+        return $this;
+    }
+
+    public function disableTracking(): void
+    {
+        $this->trackChanges = false;
+    }
+
+    public function enableTracking(): void
+    {
+        $this->trackChanges = true;
     }
 }

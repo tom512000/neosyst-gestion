@@ -82,6 +82,7 @@ class ExcelService
 
                     if (count($data) >= 5 && $data[0] !== null) {
                         $client = new Client();
+                        $client->disableTracking();
                         $client->setCode($data[0]);
                         if ($data[1] !== null) {
                             $client->setName($data[1]);
@@ -111,6 +112,7 @@ class ExcelService
                             $client->setFaxNumber($faxNumber);
                         }
                         $client->setSpreadsheetName($worksheetTitle);
+                        $client->enableTracking();
 
                         $clients[] = $client;
                     }
