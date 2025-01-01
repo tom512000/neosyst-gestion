@@ -226,9 +226,12 @@
                         </div>
                     {% endif %}
                 </div>
-                <button class="btn bg-indigo-600 text-white rounded-md px-4 py-2 hover:bg-indigo-700 font-lexend text-base transition-all duration-300">
-                    {{ button_label|default('Valider') }}
-                </button>
+                <div class="flex">
+                    <button class="btn bg-indigo-600 text-white rounded-md px-4 py-2 hover:bg-indigo-700 font-lexend text-base transition-all duration-300">
+                        {{ button_label|default('Valider') }}
+                    </button>
+                    <a href="{{ path('app_sav_show', {'id': sav.id}) }}" class="btn bg-gray-300 text-gray-700 rounded-md px-4 py-2 hover:bg-gray-400 font-lexend text-base transition-all duration-300 ml-4">Annuler</a>
+                </div>
             </div>
             {{ form_end(form) }}
         </div>
