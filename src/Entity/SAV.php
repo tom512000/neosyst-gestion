@@ -47,6 +47,11 @@ class SAV
     #[ORM\ManyToOne(inversedBy: 'sAVs')]
     private ?Client $client = null;
 
+    #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $editedDate = null;
+
+    private bool $trackChanges = true;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -60,6 +65,10 @@ class SAV
     public function setCode(?string $code): static
     {
         $this->code = $code;
+
+        if ($this->trackChanges) {
+            $this->editedDate = new \DateTime();
+        }
 
         return $this;
     }
@@ -85,6 +94,10 @@ class SAV
     {
         $this->representative = $representative;
 
+        if ($this->trackChanges) {
+            $this->editedDate = new \DateTime();
+        }
+
         return $this;
     }
 
@@ -96,6 +109,10 @@ class SAV
     public function setBreakdown(?string $breakdown): static
     {
         $this->breakdown = $breakdown;
+
+        if ($this->trackChanges) {
+            $this->editedDate = new \DateTime();
+        }
 
         return $this;
     }
@@ -109,6 +126,10 @@ class SAV
     {
         $this->endDate = $endDate;
 
+        if ($this->trackChanges) {
+            $this->editedDate = new \DateTime();
+        }
+
         return $this;
     }
 
@@ -120,6 +141,10 @@ class SAV
     public function setRepairedBy(?string $repairedBy): static
     {
         $this->repairedBy = $repairedBy;
+
+        if ($this->trackChanges) {
+            $this->editedDate = new \DateTime();
+        }
 
         return $this;
     }
@@ -133,6 +158,10 @@ class SAV
     {
         $this->repairs = $repairs;
 
+        if ($this->trackChanges) {
+            $this->editedDate = new \DateTime();
+        }
+
         return $this;
     }
 
@@ -145,6 +174,10 @@ class SAV
     {
         $this->comments = $comments;
 
+        if ($this->trackChanges) {
+            $this->editedDate = new \DateTime();
+        }
+
         return $this;
     }
 
@@ -156,6 +189,10 @@ class SAV
     public function setCharge(?string $charge): static
     {
         $this->charge = $charge;
+
+        if ($this->trackChanges) {
+            $this->editedDate = new \DateTime();
+        }
 
         return $this;
     }
@@ -181,6 +218,32 @@ class SAV
     {
         $this->client = $client;
 
+        if ($this->trackChanges) {
+            $this->editedDate = new \DateTime();
+        }
+
         return $this;
+    }
+
+    public function getEditedDate(): ?\DateTimeInterface
+    {
+        return $this->editedDate;
+    }
+
+    public function setEditedDate(?\DateTimeInterface $editedDate): static
+    {
+        $this->editedDate = $editedDate;
+
+        return $this;
+    }
+
+    public function disableTracking(): void
+    {
+        $this->trackChanges = false;
+    }
+
+    public function enableTracking(): void
+    {
+        $this->trackChanges = true;
     }
 }

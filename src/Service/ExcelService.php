@@ -140,6 +140,7 @@ class ExcelService
 
                     if (count($data) >= 13 && $data[0] !== null) {
                         $sav = new SAV();
+                        $sav->disableTracking();
                         if ($data[1] !== null) {
                             $createdDate = Date::excelToDateTimeObject($data[1]);
                             $sav->setCreatedDate($createdDate);
@@ -186,6 +187,7 @@ class ExcelService
                             $client->addSAV($sav);
                         }
                         $sav->setSpreadsheetName($worksheetTitle);
+                        $sav->enableTracking();
 
                         $savs[] = $sav;
                     }
