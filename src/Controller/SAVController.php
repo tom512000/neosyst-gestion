@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\SAV;
 use App\Form\SAVType;
+use App\Repository\ClientRepository;
 use App\Repository\SAVRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
@@ -38,9 +39,18 @@ final class SAVController extends AbstractController
     }
 
     #[Route('/new', name: 'app_sav_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Request $request, ClientRepository $clientRepository, EntityManagerInterface $entityManager): Response
     {
         $sav = new SAV();
+
+        $clientId = $request->query->get('clientId');
+        if ($clientId) {
+            $client = $clientRepository->find($clientId);
+            if ($client) {
+                $sav->setClient($client);
+            }
+        }
+
         $form = $this->createForm(SAVType::class, $sav);
         $form->handleRequest($request);
 

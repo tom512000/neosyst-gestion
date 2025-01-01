@@ -11,6 +11,12 @@
             <h3 class="text-3xl font-medium text-gray-700 font-lexend">Client {{ client.code }}</h3>
             <p class="flex items-center font-light text-gray-700 font-lexend mt-2.5">&ensp;Informations</p>
         </div>
+        <a href="{{ path('app_sav_new', {'clientId': client.id}) }}" class="relative inline-flex items-center justify-center p-[1px] overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-indigo-600 group-hover:bg-indigo-600 hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300">
+            <span class="relative flex justify-center items-center px-2 py-1.5 transition-all ease-in duration-75 bg-white text-sm font-lexend rounded-md group-hover:bg-opacity-0">
+                <i class="bx bx-plus text-xl mr-1.5"></i>
+                Ajouter un SAV
+            </span>
+        </a>
         <div class="inline-flex">
             <a href="{{ path('app_client_edit', {'id': client.id}) }}" class="bg-indigo-600 hover:bg-indigo-800 text-white text-sm font-medium pt-2.5 pb-2.5 px-4 rounded-l">Modifier</a>
             <a href="{{ path('app_client_confirm_delete', {'id': client.id}) }}" class="bg-red-600 hover:bg-red-800 text-white text-sm font-medium pt-2.5 pb-2.5 px-4 rounded-r">Supprimer</a>
