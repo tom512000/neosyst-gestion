@@ -34,7 +34,7 @@ class Client
     /**
      * @var Collection<int, SAV>
      */
-    #[ORM\OneToMany(targetEntity: SAV::class, mappedBy: 'client')]
+    #[ORM\OneToMany(targetEntity: SAV::class, mappedBy: 'client', orphanRemoval: true)]
     private Collection $sAVs;
 
     #[ORM\Column(length: 50, nullable: true)]
