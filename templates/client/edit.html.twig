@@ -1,13 +1,159 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Client{% endblock %}
+{% block homePage %}text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100{% endblock %}
+{% block savPage %}text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100{% endblock %}
+{% block clientPage %}text-gray-100 bg-gray-700 bg-opacity-25{% endblock %}
+{% block articlePage %}text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100{% endblock %}
 
-{% block body %}
-    <h1>Edit Client</h1>
+{% block header %}
+    <div class="w-full flex justify-between items-center">
+        <div class="flex">
+            <h3 class="text-3xl font-medium text-gray-700 font-lexend">Client {{ client.code }}</h3>
+            <p class="flex items-center font-light text-gray-700 font-lexend mt-2.5">&ensp;Modification</p>
+        </div>
+    </div>
+{% endblock %}
 
-    {{ include('client/_form.html.twig', {'button_label': 'Update'}) }}
-
-    <a href="{{ path('app_client_index') }}">back to list</a>
-
-    {{ include('client/_delete_form.html.twig') }}
+{% block main %}
+    <main class="flex-1 overflow-x-hidden overflow-y-auto bg-gray-200">
+        <div class="container px-6 py-6 mx-auto">
+            {{ form_start(form, {'attr': {'class': 'space-y-6'}}) }}
+            <div class="space-y-4 rounded-lg bg-white p-8 shadow-lg">
+                <div>
+                    {{ form_label(form.code, 'Code', {'label_attr': {'class': 'sr-only'}}) }}
+                    {{ form_widget(form.code, {
+                        'attr': {
+                            'class': 'w-full rounded-lg border-gray-200 p-3 font-lexend font-light text-base',
+                            'placeholder': 'Code',
+                            'id': 'code'
+                        }
+                    }) }}
+                    {% if form.code.vars.errors|length > 0 %}
+                        <div class="flex p-4 my-4 text-sm text-red-800 rounded-lg bg-red-50" role="alert">
+                            <svg class="flex-shrink-0 inline w-4 h-4 me-3 mt-[2px]" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"></path>
+                            </svg>
+                            <span class="sr-only">Danger</span>
+                            <div>
+                                <span class="font-medium">Veiller à ce que ces exigences soient respectées :</span>
+                                <ul class="mt-1.5 list-disc list-inside">
+                                    {% for error in form.code.vars.errors %}
+                                        <li>{{ error.message }}.</li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+                <div>
+                    {{ form_label(form.name, 'Nom', {'label_attr': {'class': 'sr-only'}}) }}
+                    {{ form_widget(form.name, {
+                        'attr': {
+                            'class': 'w-full rounded-lg border-gray-200 p-3 font-lexend font-light text-base',
+                            'placeholder': 'Nom',
+                            'id': 'name'
+                        }
+                    }) }}
+                    {% if form.name.vars.errors|length > 0 %}
+                        <div class="flex p-4 my-4 text-sm text-red-800 rounded-lg bg-red-50" role="alert">
+                            <svg class="flex-shrink-0 inline w-4 h-4 me-3 mt-[2px]" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"></path>
+                            </svg>
+                            <span class="sr-only">Danger</span>
+                            <div>
+                                <span class="font-medium">Veiller à ce que ces exigences soient respectées :</span>
+                                <ul class="mt-1.5 list-disc list-inside">
+                                    {% for error in form.name.vars.errors %}
+                                        <li>{{ error.message }}.</li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+                <div>
+                    {{ form_label(form.phoneNumber, 'Numéro de téléphone', {'label_attr': {'class': 'sr-only'}}) }}
+                    {{ form_widget(form.phoneNumber, {
+                        'attr': {
+                            'class': 'w-full rounded-lg border-gray-200 p-3 font-lexend font-light text-base',
+                            'placeholder': 'Numéro de téléphone (0000000000)',
+                            'id': 'phoneNumber'
+                        }
+                    }) }}
+                    {% if form.phoneNumber.vars.errors|length > 0 %}
+                        <div class="flex p-4 my-4 text-sm text-red-800 rounded-lg bg-red-50" role="alert">
+                            <svg class="flex-shrink-0 inline w-4 h-4 me-3 mt-[2px]" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"></path>
+                            </svg>
+                            <span class="sr-only">Danger</span>
+                            <div>
+                                <span class="font-medium">Veiller à ce que ces exigences soient respectées :</span>
+                                <ul class="mt-1.5 list-disc list-inside">
+                                    {% for error in form.phoneNumber.vars.errors %}
+                                        <li>{{ error.message }}.</li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+                <div>
+                    {{ form_label(form.mobileNumber, 'Numéro de portable', {'label_attr': {'class': 'sr-only'}}) }}
+                    {{ form_widget(form.mobileNumber, {
+                        'attr': {
+                            'class': 'w-full rounded-lg border-gray-200 p-3 font-lexend font-light text-base',
+                            'placeholder': 'Numéro de portable (0000000000)',
+                            'id': 'mobileNumber'
+                        }
+                    }) }}
+                    {% if form.mobileNumber.vars.errors|length > 0 %}
+                        <div class="flex p-4 my-4 text-sm text-red-800 rounded-lg bg-red-50" role="alert">
+                            <svg class="flex-shrink-0 inline w-4 h-4 me-3 mt-[2px]" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"></path>
+                            </svg>
+                            <span class="sr-only">Danger</span>
+                            <div>
+                                <span class="font-medium">Veiller à ce que ces exigences soient respectées :</span>
+                                <ul class="mt-1.5 list-disc list-inside">
+                                    {% for error in form.mobileNumber.vars.errors %}
+                                        <li>{{ error.message }}.</li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+                <div>
+                    {{ form_label(form.faxNumber, 'Numéro de fax', {'label_attr': {'class': 'sr-only'}}) }}
+                    {{ form_widget(form.faxNumber, {
+                        'attr': {
+                            'class': 'w-full rounded-lg border-gray-200 p-3 font-lexend font-light text-base',
+                            'placeholder': 'Numéro de fax (0000000000)',
+                            'id': 'faxNumber'
+                        }
+                    }) }}
+                    {% if form.faxNumber.vars.errors|length > 0 %}
+                        <div class="flex p-4 my-4 text-sm text-red-800 rounded-lg bg-red-50" role="alert">
+                            <svg class="flex-shrink-0 inline w-4 h-4 me-3 mt-[2px]" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"></path>
+                            </svg>
+                            <span class="sr-only">Danger</span>
+                            <div>
+                                <span class="font-medium">Veiller à ce que ces exigences soient respectées :</span>
+                                <ul class="mt-1.5 list-disc list-inside">
+                                    {% for error in form.faxNumber.vars.errors %}
+                                        <li>{{ error.message }}.</li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+                <button class="btn bg-indigo-600 text-white rounded-md px-4 py-2 hover:bg-indigo-700 font-lexend text-base transition-all duration-300">
+                    {{ button_label|default('Valider') }}
+                </button>
+            </div>
+            {{ form_end(form) }}
+        </div>
+    </main>
 {% endblock %}
