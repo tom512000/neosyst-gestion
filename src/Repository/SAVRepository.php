@@ -16,28 +16,18 @@ class SAVRepository extends ServiceEntityRepository
         parent::__construct($registry, SAV::class);
     }
 
-    //    /**
-    //     * @return SAV[] Returns an array of SAV objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('s')
-    //            ->andWhere('s.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('s.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
-
-    //    public function findOneBySomeField($value): ?SAV
-    //    {
-    //        return $this->createQueryBuilder('s')
-    //            ->andWhere('s.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
+    public function findBySearchQuery(?string $query)
+    {
+        return $this->createQueryBuilder('s')
+            ->andWhere('s.code LIKE :query')
+            ->orWhere('s.representative LIKE :query')
+            ->orWhere('s.breakdown LIKE :query')
+            ->orWhere('s.repairedBy LIKE :query')
+            ->orWhere('s.repairs LIKE :query')
+            ->orWhere('s.comments LIKE :query')
+            ->orWhere('s.charge LIKE :query')
+            ->setParameter('query', '%'.$query.'%')
+            ->getQuery()
+            ->getResult();
+    }
 }

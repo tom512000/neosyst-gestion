@@ -6,6 +6,7 @@ use App\Entity\SAV;
 use App\Form\SAVType;
 use App\Repository\SAVRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,10 +16,24 @@ use Symfony\Component\Routing\Attribute\Route;
 final class SAVController extends AbstractController
 {
     #[Route(name: 'app_sav_index', methods: ['GET'])]
-    public function index(SAVRepository $savRepository): Response
+    public function index(SAVRepository $savRepository, PaginatorInterface $paginator, Request $request): Response
     {
+        $query = $request->query->get('search-sav');
+        $currentPage = $request->query->getInt('page', 1);
+        $itemsPerPage = 10;
+
+        $pagination = $paginator->paginate(
+            $savRepository->findBySearchQuery($query),
+            $currentPage,
+            $itemsPerPage
+        );
+
+        $totalDisplayed = min($currentPage * $itemsPerPage, count($savRepository->findAll()));
+
         return $this->render('sav/index.html.twig', [
-            'savs' => $savRepository->findAll(),
+            'pagination' => $pagination,
+            'totalDisplayed' => $totalDisplayed,
+            'totalSAV' => count($savRepository->findAll()),
         ]);
     }
 

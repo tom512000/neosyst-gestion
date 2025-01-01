@@ -1,53 +1,69 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}SAV index{% endblock %}
+{% block head %}
+    {{ knp_pagination_rel_links(pagination) }}
+{% endblock %}
 
-{% block body %}
-    <h1>SAV index</h1>
+{% block homePage %}text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100{% endblock %}
+{% block savPage %}text-gray-100 bg-gray-700 bg-opacity-25{% endblock %}
+{% block clientPage %}text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100{% endblock %}
+{% block articlePage %}text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100{% endblock %}
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Code</th>
-                <th>CreatedDate</th>
-                <th>Representative</th>
-                <th>Breakdown</th>
-                <th>EndDate</th>
-                <th>RepairedBy</th>
-                <th>Repairs</th>
-                <th>Comments</th>
-                <th>Charge</th>
-                <th>SpreadsheetName</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for s_a_v in s_a_vs %}
-            <tr>
-                <td>{{ s_a_v.id }}</td>
-                <td>{{ s_a_v.code }}</td>
-                <td>{{ s_a_v.createdDate ? s_a_v.createdDate|date('Y-m-d') : '' }}</td>
-                <td>{{ s_a_v.representative }}</td>
-                <td>{{ s_a_v.breakdown }}</td>
-                <td>{{ s_a_v.endDate ? s_a_v.endDate|date('Y-m-d') : '' }}</td>
-                <td>{{ s_a_v.repairedBy }}</td>
-                <td>{{ s_a_v.repairs }}</td>
-                <td>{{ s_a_v.comments }}</td>
-                <td>{{ s_a_v.charge }}</td>
-                <td>{{ s_a_v.spreadsheetName }}</td>
-                <td>
-                    <a href="{{ path('app_s_a_v_show', {'id': s_a_v.id}) }}">show</a>
-                    <a href="{{ path('app_s_a_v_edit', {'id': s_a_v.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="12">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+{% block header %}
+    <div class="w-full flex justify-between items-center">
+        <div class="flex">
+            <h3 class="text-3xl font-medium text-gray-700 font-lexend">SAVs</h3>
+            <p class="flex items-center font-light text-gray-700 font-lexend mt-1.5">&ensp;({{ totalDisplayed }} sur {{ totalSAV }})</p>
+        </div>
+        <form action="{{ path('app_client_index') }}" method="get" class="relative">
+            <input type="text" name="search-client" value="{{ app.request.query.get('search-sav') }}" placeholder="Rechercher..." aria-label="search-sav" class="appearance-none border-2 pl-10 border-gray-300 hover:border-gray-400 transition-colors rounded-md w-full py-2 px-3 font-lexend text-gray-800 leading-tight focus:outline-none focus:ring-indigo-600 focus:border-indigo-600 focus:shadow-outline" />
+            <a href="{{ path('app_sav_index') }}" class="absolute right-0 inset-y-0 flex items-center">
+                <i class="bx bx-x text-2xl ml-3 mr-2 text-gray-400 hover:text-gray-500"></i>
+            </a>
+            <button type="submit" class="absolute left-0 inset-y-0 flex items-center">
+                <i class="bx bx-search text-xl mx-3 text-gray-400 hover:text-gray-500"></i>
+            </button>
+        </form>
+        <a href="{{ path('app_sav_new') }}" class="relative inline-flex items-center justify-center p-[1px] overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-indigo-600 group-hover:bg-indigo-600 hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300">
+            <span class="relative flex justify-center items-center px-2 py-1.5 transition-all ease-in duration-75 bg-white text-sm font-lexend rounded-md group-hover:bg-opacity-0">
+                <i class="bx bx-plus text-xl mr-1.5"></i>
+                Ajouter un SAV
+            </span>
+        </a>
+    </div>
+{% endblock %}
 
-    <a href="{{ path('app_s_a_v_new') }}">Create new</a>
+{% block main %}
+    <main class="flex-1 overflow-x-hidden overflow-y-auto bg-gray-200">
+        <div class="container px-6 py-6 mx-auto">
+            {% for sav in pagination %}
+                <div class="bg-gray-100 mb-4 p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
+                    <div class="flex text-gray-700 space-y-2">
+                        <div class="w-1/2 h-full">
+                            <p><span class="font-semibold">Code d'intervention :</span> {{ sav.code ?? 'Non spécifié' }}</p>
+                            <p><span class="font-semibold">Créé le :</span> {{ sav.createdDate ? sav.createdDate|date('d/m/Y') : 'Non spécifié' }}</p>
+                            <p><span class="font-semibold">Représentant :</span> {{ sav.representative ?? 'Non spécifié' }}</p>
+                            <p><span class="text-justify font-semibold">Panne :</span> {{ sav.breakdown ?? 'Non spécifié' }}</p>
+                            <p><span class="font-semibold">Prévu pour le :</span> {{ sav.endDate ? sav.endDate|date('d/m/Y') : 'Non spécifié' }}</p>
+                        </div>
+                        <div class="w-1/2 h-full ml-3">
+                            <p><span class="font-semibold">Réparé par :</span> {{ sav.repairedBy ?? 'Non spécifié' }}</p>
+                            <p><span class="text-justify font-semibold">Réparations :</span> {{ sav.breakdown ?? 'Non spécifié' }}</p>
+                            <p><span class="text-justify font-semibold">Observations :</span> {{ sav.repairs ?? 'Aucun' }}</p>
+                            <p><span class="font-semibold">Coût :</span> {{ sav.charge is not empty and sav.charge != 'NONE' ? sav.charge : 'Non spécifié' }}</p>
+                            <p><span class="font-semibold">Client :</span> {{ sav.client.name ?? 'Non spécifié' }}</p>
+                        </div>
+                    </div>
+                    <a href="{{ path('app_sav_show', {'id': sav.id}) }}" class="mt-3 inline-block text-indigo-500 hover:text-indigo-700 font-medium">
+                        Voir les détails →
+                    </a>
+                </div>
+            {% else %}
+                <p class="text-gray-500">Aucun SAV trouvé...</p>
+            {% endfor %}
+            <div class="w-full flex justify-center items-center mt-6 mb-7">
+                {{ knp_pagination_render(pagination, "components/_custom_pagination.html.twig") }}
+            </div>
+        </div>
+    </main>
 {% endblock %}
