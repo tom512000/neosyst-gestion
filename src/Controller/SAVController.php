@@ -83,12 +83,22 @@ final class SAVController extends AbstractController
         ]);
     }
 
+    #[Route('/{id}/confirm-delete', name: 'app_sav_confirm_delete', methods: ['GET'])]
+    public function confirmDelete(SAV $sav): Response
+    {
+        return $this->render('sav/confirm_delete.html.twig', [
+            'sav' => $sav,
+        ]);
+    }
+
     #[Route('/{id}', name: 'app_sav_delete', methods: ['POST'])]
     public function delete(Request $request, SAV $sav, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$sav->getId(), $request->getPayload()->getString('_token'))) {
             $entityManager->remove($sav);
             $entityManager->flush();
+
+            $this->addFlash('success', 'Le sav a été supprimé avec succès.');
         }
 
         return $this->redirectToRoute('app_sav_index', [], Response::HTTP_SEE_OTHER);
