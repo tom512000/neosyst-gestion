@@ -80,7 +80,7 @@ class ExcelService
                         $data[] = $cell->getValue();
                     }
 
-                    if (count($data) >= 5 && $data[0] !== null) {
+                    if (count($data) >= 5) {
                         $client = new Client();
                         $client->disableTracking();
                         $client->setCode($data[0]);
