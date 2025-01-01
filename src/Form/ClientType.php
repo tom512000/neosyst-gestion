@@ -4,19 +4,64 @@ namespace App\Form;
 
 use App\Entity\Client;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 class ClientType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('code')
-            ->add('name')
-            ->add('phoneNumber')
-            ->add('mobileNumber')
-            ->add('faxNumber')
+            ->add('code', TextType::class, [
+                'required' => true,
+                'constraints' => [
+                    new NotBlank(['message' => 'Le code ne doit pas être vide']),
+                    new Length([
+                        'max' => 30,
+                        'maxMessage' => 'Le code doit contenir au maximum {{ limit }} caractères',
+                    ]),
+                ],
+            ])
+            ->add('name', TextType::class, [
+                'required' => true,
+                'constraints' => [
+                    new NotBlank(['message' => 'Le nom ne doit pas être vide']),
+                    new Length([
+                        'max' => 255,
+                        'maxMessage' => 'Le nom doit contenir au maximum {{ limit }} caractères',
+                    ]),
+                ],
+            ])
+            ->add('phoneNumber', TextType::class, [
+                'required' => false,
+                'constraints' => [
+                    new Length([
+                        'max' => 10,
+                        'maxMessage' => 'Le numéro de téléphone doit contenir au maximum {{ limit }} caractères',
+                    ]),
+                ],
+            ])
+            ->add('mobileNumber', TextType::class, [
+                'required' => false,
+                'constraints' => [
+                    new Length([
+                        'max' => 10,
+                        'maxMessage' => 'Le numéro de mobile doit contenir au maximum {{ limit }} caractères',
+                    ]),
+                ],
+            ])
+            ->add('faxNumber', TextType::class, [
+                'required' => false,
+                'constraints' => [
+                    new Length([
+                        'max' => 10,
+                        'maxMessage' => 'Le numéro de fax doit contenir au maximum {{ limit }} caractères',
+                    ]),
+                ],
+            ])
         ;
     }
 
