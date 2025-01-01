@@ -36,70 +36,72 @@
 {% block main %}
     <main class="flex-1 overflow-x-hidden overflow-y-auto bg-gray-200">
         <div class="container px-6 py-6 mx-auto">
-            <div class="inline-block min-w-full overflow-hidden align-middle border-b border-gray-200 shadow sm:rounded-lg">
-                <table class="min-w-full">
-                    <thead>
-                        <tr>
-                            <th class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">Nom</th>
-                            <th class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">Numéro de Téléphone</th>
-                            <th class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">Numéro de Portable</th>
-                            <th class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">Numéro de Fax</th>
-                        </tr>
-                    </thead>
-                    <tbody class="bg-white">
-                        {% for client in pagination %}
-                            <tr class="group">
-                                <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                                    <a href="{{ path('app_client_show', {'id': client.id}) }}" class="text-nowrap text-sm font-semibold font-geist-mono leading-5 text-gray-900 group-hover:underline group-hover:underline-offset-4">{{ client.name }}</a>
-                                </td>
-                                <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                                    {% if client.phoneNumber %}
-                                        {% set formattedPhoneNumber = client.phoneNumber|slice(0, 2) ~ ' ' ~
-                                            client.phoneNumber|slice(2, 2) ~ ' ' ~
-                                            client.phoneNumber|slice(4, 2) ~ ' ' ~
-                                            client.phoneNumber|slice(6, 2) ~ ' ' ~
-                                            client.phoneNumber|slice(8, 2)
-                                        %}
-                                        <p class="text-sm font-medium leading-5 text-gray-500">{{ formattedPhoneNumber }}</p>
-                                    {% else %}
-                                        <i class="bx bx-x text-xl text-gray-500"></i>
-                                    {% endif %}
-                                </td>
-                                <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                                    {% if client.mobileNumber %}
-                                        {% set formattedMobileNumber = client.mobileNumber|slice(0, 2) ~ ' ' ~
-                                            client.mobileNumber|slice(2, 2) ~ ' ' ~
-                                            client.mobileNumber|slice(4, 2) ~ ' ' ~
-                                            client.mobileNumber|slice(6, 2) ~ ' ' ~
-                                            client.mobileNumber|slice(8, 2)
-                                        %}
-                                        <p class="text-sm font-medium leading-5 text-gray-500">{{ formattedMobileNumber }}</p>
-                                    {% else %}
-                                        <i class="bx bx-x text-xl text-gray-500"></i>
-                                    {% endif %}
-                                </td>
-                                <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                                    {% if client.faxNumber %}
-                                        {% set formattedFaxNumber = client.faxNumber|slice(0, 2) ~ ' ' ~
-                                            client.faxNumber|slice(2, 2) ~ ' ' ~
-                                            client.faxNumber|slice(4, 2) ~ ' ' ~
-                                            client.faxNumber|slice(6, 2) ~ ' ' ~
-                                            client.faxNumber|slice(8, 2)
-                                        %}
-                                        <p class="text-sm font-medium leading-5 text-gray-500">{{ formattedFaxNumber }}</p>
-                                    {% else %}
-                                        <i class="bx bx-x text-xl text-gray-500"></i>
-                                    {% endif %}
-                                </td>
+            {% if pagination.getTotalItemCount > 0 %}
+                <div class="inline-block min-w-full overflow-hidden align-middle border-b border-gray-200 shadow sm:rounded-lg">
+                    <table class="min-w-full">
+                        <thead>
+                            <tr>
+                                <th class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">Nom</th>
+                                <th class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">Numéro de Téléphone</th>
+                                <th class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">Numéro de Portable</th>
+                                <th class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">Numéro de Fax</th>
                             </tr>
-                        {% else %}
-                            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                                <p class="text-nowrap text-sm font-medium leading-5 text-gray-900">Aucun client...</p>
-                            </td>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
+                        </thead>
+                        <tbody class="bg-white">
+                            {% for client in pagination %}
+                                <tr class="group">
+                                    <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                                        <a href="{{ path('app_client_show', {'id': client.id}) }}" class="text-nowrap text-sm font-semibold font-geist-mono leading-5 text-gray-900 group-hover:underline group-hover:underline-offset-4">{{ client.name }}</a>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                                        {% if client.phoneNumber %}
+                                            {% set formattedPhoneNumber = client.phoneNumber|slice(0, 2) ~ ' ' ~
+                                                client.phoneNumber|slice(2, 2) ~ ' ' ~
+                                                client.phoneNumber|slice(4, 2) ~ ' ' ~
+                                                client.phoneNumber|slice(6, 2) ~ ' ' ~
+                                                client.phoneNumber|slice(8, 2)
+                                            %}
+                                            <p class="text-sm font-medium leading-5 text-gray-500">{{ formattedPhoneNumber }}</p>
+                                        {% else %}
+                                            <i class="bx bx-x text-xl text-gray-500"></i>
+                                        {% endif %}
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                                        {% if client.mobileNumber %}
+                                            {% set formattedMobileNumber = client.mobileNumber|slice(0, 2) ~ ' ' ~
+                                                client.mobileNumber|slice(2, 2) ~ ' ' ~
+                                                client.mobileNumber|slice(4, 2) ~ ' ' ~
+                                                client.mobileNumber|slice(6, 2) ~ ' ' ~
+                                                client.mobileNumber|slice(8, 2)
+                                            %}
+                                            <p class="text-sm font-medium leading-5 text-gray-500">{{ formattedMobileNumber }}</p>
+                                        {% else %}
+                                            <i class="bx bx-x text-xl text-gray-500"></i>
+                                        {% endif %}
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                                        {% if client.faxNumber %}
+                                            {% set formattedFaxNumber = client.faxNumber|slice(0, 2) ~ ' ' ~
+                                                client.faxNumber|slice(2, 2) ~ ' ' ~
+                                                client.faxNumber|slice(4, 2) ~ ' ' ~
+                                                client.faxNumber|slice(6, 2) ~ ' ' ~
+                                                client.faxNumber|slice(8, 2)
+                                            %}
+                                            <p class="text-sm font-medium leading-5 text-gray-500">{{ formattedFaxNumber }}</p>
+                                        {% else %}
+                                            <i class="bx bx-x text-xl text-gray-500"></i>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% else %}
+                <div>
+                    <p>Aucun client trouvé...</p>
+                </div>
+            {% endif %}
             <div class="w-full flex justify-center items-center mt-6 mb-7">
                 {{ knp_pagination_render(pagination, "components/_custom_pagination.html.twig") }}
             </div>
