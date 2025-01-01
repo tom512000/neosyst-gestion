@@ -37,11 +37,11 @@ class Client
     #[ORM\OneToMany(targetEntity: SAV::class, mappedBy: 'client')]
     private Collection $sAVs;
 
-    #[ORM\Column(length: 50)]
+    #[ORM\Column(length: 50, nullable: true)]
     private ?string $spreadsheetName = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
-    private ?\DateTimeInterface $createdDate = null;
+    private ?\DateTimeInterface $createdDate;
 
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $editedDate = null;
