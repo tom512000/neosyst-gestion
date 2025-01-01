@@ -41,7 +41,7 @@ class SAV
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $charge = null;
 
-    #[ORM\Column(length: 50)]
+    #[ORM\Column(length: 50, nullable: true)]
     private ?string $spreadsheetName = null;
 
     #[ORM\ManyToOne(inversedBy: 'sAVs')]
