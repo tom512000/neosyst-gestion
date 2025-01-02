@@ -60,6 +60,16 @@ final class ArticleController extends AbstractController
             $entityManager->persist($article);
             $entityManager->flush();
 
+            if ($article->getCode() == null) {
+                $article->disableTracking();
+                $article->setCode($article->getId());
+                $article->enableTracking();
+            }
+
+            $article->setEditedDate(null);
+
+            $entityManager->flush();
+
             return $this->redirectToRoute('app_article_index', [], Response::HTTP_SEE_OTHER);
         }
 

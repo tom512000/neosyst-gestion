@@ -19,16 +19,6 @@ class ArticleType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('code', TextType::class, [
-                'required' => true,
-                'constraints' => [
-                    new NotBlank(['message' => 'Le code ne doit pas être vide']),
-                    new Length([
-                        'max' => 30,
-                        'maxMessage' => 'Le code doit contenir au maximum {{ limit }} caractères',
-                    ]),
-                ],
-            ])
             ->add('description', TextareaType::class, [
                 'required' => true,
                 'constraints' => [
