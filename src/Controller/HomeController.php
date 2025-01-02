@@ -29,6 +29,9 @@ class HomeController extends AbstractController
         $lastsEditedClients = $clientRepository->lastsEditedClients();
 
         $totalSAVs = count($savRepository->findAll());
+        $lastsCreatedSAVs = $savRepository->lastsCreatedSAVs();
+        $lastsEditedSAVs = $savRepository->lastsEditedSAVs();
+
         $totalArticles = count($articleRepository->findAll());
 
         return $this->render('home/index.html.twig', [
@@ -37,6 +40,8 @@ class HomeController extends AbstractController
             'lastsCreatedClients' => $lastsCreatedClients,
             'lastsEditedClients' => $lastsEditedClients,
             'totalSAVs' => $totalSAVs,
+            'lastsCreatedSAVs' => $lastsCreatedSAVs,
+            'lastsEditedSAVs' => $lastsEditedSAVs,
             'totalArticles' => $totalArticles,
         ]);
     }

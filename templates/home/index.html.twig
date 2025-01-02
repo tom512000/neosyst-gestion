@@ -137,11 +137,18 @@
                                             </svg>
                                         </span>
                                     </summary>
-                                    <p class="mt-4 leading-relaxed text-gray-700">
-                                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ab hic veritatis molestias culpa in,
-                                        recusandae laboriosam neque aliquid libero nesciunt voluptate dicta quo officiis explicabo
-                                        consequuntur distinctio corporis earum similique!
-                                    </p>
+                                    <div class="mt-2 relative z-10">
+                                        <ul class="mt-2 mx-auto max-w-xs text-left font-medium text-lg leading-none border-indigo-200 divide-y divide-indigo-200">
+                                            {% for sav in lastsCreatedSAVs %}
+                                                <li>
+                                                    <a href="{{ path('app_sav_show', {'id': sav.id}) }}" class="py-2.5 w-full flex items-center text-base text-indigo-500 hover:text-indigo-700 hover:bg-indigo-50">
+                                                        <span class="mr-2.5 w-1 h-7 bg-indigo-500 rounded-r-md"></span>
+                                                        SAV {{ sav.code }}
+                                                    </a>
+                                                </li>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
                                 </details>
                                 <details class="group p-6 [&_summary::-webkit-details-marker]:hidden">
                                     <summary class="flex cursor-pointer items-center justify-between gap-1.5 text-gray-900">
@@ -155,11 +162,20 @@
                                             </svg>
                                         </span>
                                     </summary>
-                                    <p class="mt-4 leading-relaxed text-gray-700">
-                                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ab hic veritatis molestias culpa in,
-                                        recusandae laboriosam neque aliquid libero nesciunt voluptate dicta quo officiis explicabo
-                                        consequuntur distinctio corporis earum similique!
-                                    </p>
+                                    <div class="mt-2 relative z-10">
+                                        <ul class="mt-2 mx-auto max-w-xs text-left font-medium text-lg leading-none border-indigo-200 divide-y divide-indigo-200">
+                                            {% for sav in lastsEditedSAVs %}
+                                                <li>
+                                                    <a href="{{ path('app_sav_show', {'id': sav.id}) }}" class="py-2.5 w-full flex items-center text-base text-indigo-500 hover:text-indigo-700 hover:bg-indigo-50">
+                                                        <span class="mr-2.5 w-1 h-7 bg-indigo-500 rounded-r-md"></span>
+                                                        SAV {{ sav.code }}
+                                                    </a>
+                                                </li>
+                                            {% else %}
+                                                <p class="mt-4 leading-relaxed text-base text-gray-500">Aucun sav modifié</p>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
                                 </details>
                             </div>
                         </div>
