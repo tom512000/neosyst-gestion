@@ -29,7 +29,7 @@ class HomeController extends AbstractController
         $totalArticles = count($articleRepository->findAll());
 
         return $this->render('home/index.html.twig', [
-            'currentDate' => $formatter->format($date),
+            'currentDate' => ucfirst($formatter->format($date)),
             'totalClients' => $totalClients,
             'totalSAVs' => $totalSAVs,
             'totalArticles' => $totalArticles,
