@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Client;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -21,6 +22,26 @@ class ClientRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('a')
             ->where('a.code LIKE :query OR a.name LIKE :query')
             ->setParameter('query', '%'.$query.'%')
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function lastsCreatedClients(): array
+    {
+        return $this->createQueryBuilder('a')
+            ->OrWhere('a.createdDate IS NOT NULL')
+            ->orderBy('a.createdDate', 'DESC')
+            ->setMaxResults(5)
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function lastsEditedClients(): array
+    {
+        return $this->createQueryBuilder('a')
+            ->OrWhere('a.editedDate IS NOT NULL')
+            ->orderBy('a.editedDate', 'DESC')
+            ->setMaxResults(5)
             ->getQuery()
             ->getResult();
     }

@@ -25,12 +25,17 @@ class HomeController extends AbstractController
         );
 
         $totalClients = count($clientRepository->findAll());
+        $lastsCreatedClients = $clientRepository->lastsCreatedClients();
+        $lastsEditedClients = $clientRepository->lastsEditedClients();
+
         $totalSAVs = count($savRepository->findAll());
         $totalArticles = count($articleRepository->findAll());
 
         return $this->render('home/index.html.twig', [
             'currentDate' => ucfirst($formatter->format($date)),
             'totalClients' => $totalClients,
+            'lastsCreatedClients' => $lastsCreatedClients,
+            'lastsEditedClients' => $lastsEditedClients,
             'totalSAVs' => $totalSAVs,
             'totalArticles' => $totalArticles,
         ]);
