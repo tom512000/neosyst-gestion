@@ -52,6 +52,10 @@ class Client
     {
         $this->sAVs = new ArrayCollection();
         $this->createdDate = new \DateTime();
+
+        if ($this->trackChanges && $this->code === null) {
+            $this->code = $this->id;
+        }
     }
 
     public function getId(): ?int

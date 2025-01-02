@@ -29,8 +29,9 @@ class ClientRepository extends ServiceEntityRepository
     public function lastsCreatedClients(): array
     {
         return $this->createQueryBuilder('a')
-            ->OrWhere('a.createdDate IS NOT NULL')
-            ->orderBy('a.createdDate', 'DESC')
+            ->orWhere('a.createdDate IS NOT NULL')
+            ->andWhere('a.spreadsheetName IS NULL')
+            ->orderBy('a.id', 'DESC')
             ->setMaxResults(5)
             ->getQuery()
             ->getResult();
@@ -39,8 +40,9 @@ class ClientRepository extends ServiceEntityRepository
     public function lastsEditedClients(): array
     {
         return $this->createQueryBuilder('a')
-            ->OrWhere('a.editedDate IS NOT NULL')
-            ->orderBy('a.editedDate', 'DESC')
+            ->orWhere('a.editedDate IS NOT NULL')
+            ->andWhere('a.spreadsheetName IS NULL')
+            ->orderBy('a.id', 'DESC')
             ->setMaxResults(5)
             ->getQuery()
             ->getResult();

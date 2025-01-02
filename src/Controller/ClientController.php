@@ -48,6 +48,10 @@ final class ClientController extends AbstractController
             $entityManager->persist($client);
             $entityManager->flush();
 
+            $client->setEditedDate(null);
+
+            $entityManager->flush();
+
             return $this->redirectToRoute('app_client_index', [], Response::HTTP_SEE_OTHER);
         }
 
