@@ -47,7 +47,9 @@ final class SAVController extends AbstractController
         if ($clientId) {
             $client = $clientRepository->find($clientId);
             if ($client) {
+                $sav->disableTracking();
                 $sav->setClient($client);
+                $sav->enableTracking();
             }
         }
 
@@ -56,6 +58,16 @@ final class SAVController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($sav);
+            $entityManager->flush();
+
+            if ($sav->getCode() == null) {
+                $sav->disableTracking();
+                $sav->setCode($sav->getId());
+                $sav->enableTracking();
+            }
+
+            $sav->setEditedDate(null);
+
             $entityManager->flush();
 
             return $this->redirectToRoute('app_sav_index', [], Response::HTTP_SEE_OTHER);

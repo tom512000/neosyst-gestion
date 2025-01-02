@@ -34,8 +34,9 @@ class SAVRepository extends ServiceEntityRepository
     public function lastsCreatedSAVs()
     {
         return $this->createQueryBuilder('s')
-            ->OrWhere('s.createdDate IS NOT NULL')
-            ->orderBy('s.createdDate', 'DESC')
+            ->orWhere('s.createdDate IS NOT NULL')
+            ->andWhere('s.spreadsheetName IS NULL')
+            ->orderBy('s.id', 'DESC')
             ->setMaxResults(5)
             ->getQuery()
             ->getResult();
@@ -44,8 +45,9 @@ class SAVRepository extends ServiceEntityRepository
     public function lastsEditedSAVs()
     {
         return $this->createQueryBuilder('s')
-            ->OrWhere('s.editedDate IS NOT NULL')
-            ->orderBy('s.editedDate', 'DESC')
+            ->orWhere('s.editedDate IS NOT NULL')
+            ->andWhere('s.spreadsheetName IS NULL')
+            ->orderBy('s.id', 'DESC')
             ->setMaxResults(5)
             ->getQuery()
             ->getResult();

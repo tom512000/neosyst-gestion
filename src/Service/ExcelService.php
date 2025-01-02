@@ -127,6 +127,7 @@ class ExcelService
     {
         $savs = [];
         foreach ($spreadsheet->getWorksheetIterator() as $worksheet) {
+            $id = 0;
             foreach ($worksheet->getRowIterator() as $rowIndex => $row) {
                 $worksheetTitle = $worksheet->getTitle();
                 if ($rowIndex > 1) {
@@ -139,6 +140,7 @@ class ExcelService
                     }
 
                     if (count($data) >= 13 && $data[0] !== null) {
+                        $id++;
                         $sav = new SAV();
                         $sav->disableTracking();
                         if ($data[1] !== null) {
@@ -185,6 +187,8 @@ class ExcelService
 
                             $client = $clientRepository->findOneBy(['code' => $code]);
                             $client->addSAV($sav);
+                        } else {
+                            $sav->setCode($id);
                         }
                         $sav->setSpreadsheetName($worksheetTitle);
                         $sav->enableTracking();

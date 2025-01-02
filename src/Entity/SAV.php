@@ -52,6 +52,13 @@ class SAV
 
     private bool $trackChanges = true;
 
+    public function __construct()
+    {
+        if ($this->trackChanges || $this->createdDate === null) {
+            $this->createdDate = new \DateTime();
+        }
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -81,6 +88,10 @@ class SAV
     public function setCreatedDate(?\DateTimeInterface $createdDate): static
     {
         $this->createdDate = $createdDate;
+
+        if ($this->trackChanges) {
+            $this->editedDate = new \DateTime();
+        }
 
         return $this;
     }
