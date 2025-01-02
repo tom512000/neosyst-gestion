@@ -47,6 +47,7 @@ class ArticleRepository extends ServiceEntityRepository
     public function lastsCreatedArticles(): array
     {
         return $this->createQueryBuilder('a')
+            ->OrWhere('a.createdDate IS NOT NULL')
             ->orderBy('a.createdDate', 'DESC')
             ->setMaxResults(5)
             ->getQuery()
@@ -56,6 +57,7 @@ class ArticleRepository extends ServiceEntityRepository
     public function lastsEditedArticles(): array
     {
         return $this->createQueryBuilder('a')
+            ->OrWhere('a.editedDate IS NOT NULL')
             ->orderBy('a.editedDate', 'DESC')
             ->setMaxResults(5)
             ->getQuery()
