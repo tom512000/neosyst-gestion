@@ -43,4 +43,22 @@ class ArticleRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    public function lastsCreatedArticles(): array
+    {
+        return $this->createQueryBuilder('a')
+            ->orderBy('a.createdDate', 'DESC')
+            ->setMaxResults(5)
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function lastsEditedArticles(): array
+    {
+        return $this->createQueryBuilder('a')
+            ->orderBy('a.editedDate', 'DESC')
+            ->setMaxResults(5)
+            ->getQuery()
+            ->getResult();
+    }
 }

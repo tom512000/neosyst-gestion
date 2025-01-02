@@ -33,6 +33,8 @@ class HomeController extends AbstractController
         $lastsEditedSAVs = $savRepository->lastsEditedSAVs();
 
         $totalArticles = count($articleRepository->findAll());
+        $lastsCreatedArticles = $articleRepository->lastsCreatedArticles();
+        $lastsEditedArticles = $articleRepository->lastsEditedArticles();
 
         return $this->render('home/index.html.twig', [
             'currentDate' => ucfirst($formatter->format($date)),
@@ -43,6 +45,8 @@ class HomeController extends AbstractController
             'lastsCreatedSAVs' => $lastsCreatedSAVs,
             'lastsEditedSAVs' => $lastsEditedSAVs,
             'totalArticles' => $totalArticles,
+            'lastsCreatedArticles' => $lastsCreatedArticles,
+            'lastsEditedArticles' => $lastsEditedArticles,
         ]);
     }
 }
