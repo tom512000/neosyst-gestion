@@ -152,6 +152,8 @@ class ExcelService
                         }
                         if ($data[6] !== null) {
                             $breakdown = $data[6];
+                            $breakdown = preg_replace('/\s+/', ' ', $breakdown);
+                            $breakdown = str_replace('_x000D_', "\n", $breakdown);
                             if (strlen($breakdown) > 255) {
                                 $breakdown = substr($breakdown, 0, 252);
                                 $breakdown .= "...";
@@ -168,6 +170,8 @@ class ExcelService
                         }
                         if ($data[9] !== null) {
                             $repairs = $data[9];
+                            $repairs = preg_replace('/\s+/', ' ', $repairs);
+                            $repairs = str_replace('_x000D_', "\n", $repairs);
                             if (strlen($repairs) > 255) {
                                 $repairs = substr($repairs, 0, 252);
                                 $repairs .= "...";
@@ -176,10 +180,26 @@ class ExcelService
                             $sav->setRepairs($repairs);
                         }
                         if ($data[10] !== null) {
-                            $sav->setComments($data[10]);
+                            $comments = $data[10];
+                            $comments = preg_replace('/\s+/', ' ', $comments);
+                            $comments = str_replace('_x000D_', "\n", $comments);
+                            if (strlen($comments) > 255) {
+                                $comments = substr($comments, 0, 252);
+                                $comments .= "...";
+                            }
+
+                            $sav->setComments($comments);
                         }
                         if ($data[11] !== null) {
-                            $sav->setCharge($data[11]);
+                            $charge = $data[11];
+                            $charge = preg_replace('/\s+/', ' ', $charge);
+                            $charge = str_replace('_x000D_', "\n", $charge);
+                            if (strlen($charge) > 255) {
+                                $charge = substr($charge, 0, 252);
+                                $charge .= "...";
+                            }
+
+                            $sav->setCharge($charge);
                         }
                         if ($data[12] !== null) {
                             $code = $data[12];
