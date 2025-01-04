@@ -1,62 +1,68 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}SAV{% endblock %}
+{% block homePage %}text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100{% endblock %}
+{% block savPage %}text-gray-100 bg-gray-700 bg-opacity-25{% endblock %}
+{% block clientPage %}text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100{% endblock %}
+{% block articlePage %}text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100{% endblock %}
 
-{% block body %}
-    <h1>SAV</h1>
+{% block header %}
+    <div class="w-full flex justify-between items-center">
+        <div class="flex">
+            <h3 class="text-3xl font-medium text-gray-700 font-lexend">SAV {{ sav.code }}</h3>
+            <p class="flex items-center font-light text-gray-700 font-lexend mt-2.5">&ensp;Informations</p>
+        </div>
+        <div class="inline-flex">
+            <a href="{{ path('app_sav_edit', {'id': sav.id}) }}" class="bg-indigo-600 hover:bg-indigo-800 text-white text-sm font-medium pt-2.5 pb-2.5 px-4 rounded-l">Modifier</a>
+            <a href="{{ path('app_sav_confirm_delete', {'id': sav.id}) }}" class="bg-red-600 hover:bg-red-800 text-white text-sm font-medium pt-2.5 pb-2.5 px-4 rounded-r">Supprimer</a>
+        </div>
+    </div>
+{% endblock %}
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ s_a_v.id }}</td>
-            </tr>
-            <tr>
-                <th>Code</th>
-                <td>{{ s_a_v.code }}</td>
-            </tr>
-            <tr>
-                <th>CreatedDate</th>
-                <td>{{ s_a_v.createdDate ? s_a_v.createdDate|date('Y-m-d') : '' }}</td>
-            </tr>
-            <tr>
-                <th>Representative</th>
-                <td>{{ s_a_v.representative }}</td>
-            </tr>
-            <tr>
-                <th>Breakdown</th>
-                <td>{{ s_a_v.breakdown }}</td>
-            </tr>
-            <tr>
-                <th>EndDate</th>
-                <td>{{ s_a_v.endDate ? s_a_v.endDate|date('Y-m-d') : '' }}</td>
-            </tr>
-            <tr>
-                <th>RepairedBy</th>
-                <td>{{ s_a_v.repairedBy }}</td>
-            </tr>
-            <tr>
-                <th>Repairs</th>
-                <td>{{ s_a_v.repairs }}</td>
-            </tr>
-            <tr>
-                <th>Comments</th>
-                <td>{{ s_a_v.comments }}</td>
-            </tr>
-            <tr>
-                <th>Charge</th>
-                <td>{{ s_a_v.charge }}</td>
-            </tr>
-            <tr>
-                <th>SpreadsheetName</th>
-                <td>{{ s_a_v.spreadsheetName }}</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <a href="{{ path('app_s_a_v_index') }}">back to list</a>
-
-    <a href="{{ path('app_s_a_v_edit', {'id': s_a_v.id}) }}">edit</a>
-
-    {{ include('sav/_delete_form.html.twig') }}
+{% block main %}
+    <main class="flex-1 overflow-x-hidden overflow-y-auto bg-gray-200">
+        <div class="container px-6 py-6 mx-auto">
+            <div class="w-full bg-white shadow-lg rounded-lg">
+                <div class="md:grid md:grid-cols-2 md:space-y-0 space-y-1 p-4 border-b">
+                    <p class="font-lexend font-light text-gray-500">Code</p>
+                    <p class="font-lexend">{{ sav.code }}</p>
+                </div>
+                <div class="md:grid md:grid-cols-2 md:space-y-0 space-y-1 p-4 border-b">
+                    <p class="font-lexend font-light text-gray-500">Date de création</p>
+                    <p class="font-lexend">{{ sav.createdDate ? sav.createdDate|date('d/m/Y') : 'Non spécifié' }}</p>
+                </div>
+                <div class="md:grid md:grid-cols-2 md:space-y-0 space-y-1 p-4 border-b">
+                    <p class="font-lexend font-light text-gray-500">Représentant</p>
+                    <p class="font-lexend">{{ sav.representative ?? 'Non spécifié' }}</p>
+                </div>
+                <div class="md:grid md:grid-cols-2 md:space-y-0 space-y-1 p-4 border-b">
+                    <p class="font-lexend font-light text-gray-500">Panne</p>
+                    <p class="font-lexend">{{ sav.breakdown ?? 'Non spécifié' }}</p>
+                </div>
+                <div class="md:grid md:grid-cols-2 md:space-y-0 space-y-1 p-4 border-b">
+                    <p class="font-lexend font-light text-gray-500">Date prévue</p>
+                    <p class="font-lexend">{{ sav.endDate ? sav.endDate|date('d/m/Y') : 'Non spécifié' }}</p>
+                </div>
+                <div class="md:grid md:grid-cols-2 md:space-y-0 space-y-1 p-4 border-b">
+                    <p class="font-lexend font-light text-gray-500">Réparateur</p>
+                    <p class="font-lexend">{{ sav.repairedBy ?? 'Non spécifié' }}</p>
+                </div>
+                <div class="md:grid md:grid-cols-2 md:space-y-0 space-y-1 p-4 border-b">
+                    <p class="font-lexend font-light text-gray-500">Réparations</p>
+                    <p class="font-lexend">{{ sav.repairs ?? 'Non spécifié' }}</p>
+                </div>
+                <div class="md:grid md:grid-cols-2 md:space-y-0 space-y-1 p-4 border-b">
+                    <p class="font-lexend font-light text-gray-500">Observations</p>
+                    <p class="font-lexend">{{ sav.comments ?? 'Non spécifié' }}</p>
+                </div>
+                <div class="md:grid md:grid-cols-2 md:space-y-0 space-y-1 p-4 border-b">
+                    <p class="font-lexend font-light text-gray-500">Coût</p>
+                    <p class="font-lexend">{{ sav.charge is not empty and sav.charge != 'NONE' ? sav.charge : 'Non spécifié' }}</p>
+                </div>
+                <div class="md:grid md:grid-cols-2 md:space-y-0 space-y-1 p-4 border-b">
+                    <p class="font-lexend font-light text-gray-500">Client</p>
+                    <p class="font-lexend">{{ sav.client.name ?? 'Non spécifié' }}</p>
+                </div>
+            </div>
+        </div>
+    </main>
 {% endblock %}
