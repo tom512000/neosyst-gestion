@@ -47,9 +47,9 @@
                             <p><span class="font-semibold">Prévu pour le :</span> {{ sav.endDate ? sav.endDate|date('d/m/Y') : 'Non spécifié' }}</p>
                         </div>
                         <div class="w-1/2 h-full ml-3">
-                            <p><span class="font-semibold">Réparé par :</span> {{ sav.repairedBy ?? 'Non spécifié' }}</p>
-                            <p><span class="text-justify font-semibold">Réparations :</span> {{ sav.breakdown ?? 'Non spécifié' }}</p>
-                            <p><span class="text-justify font-semibold">Observations :</span> {{ sav.repairs ?? 'Aucun' }}</p>
+                            <p><span class="font-semibold">Réparateur :</span> {{ sav.repairedBy ?? 'Non spécifié' }}</p>
+                            <p><span class="text-justify font-semibold">Réparations :</span> {{ sav.repairs ?? 'Non spécifié' }}</p>
+                            <p><span class="text-justify font-semibold">Observations :</span> {{ sav.comments ?? 'Non spécifié' }}</p>
                             <p><span class="font-semibold">Coût :</span> {{ sav.charge is not empty and sav.charge != 'NONE' ? sav.charge : 'Non spécifié' }}</p>
                             <p><span class="font-semibold">Client :</span> {{ sav.client.name ?? 'Non spécifié' }}</p>
                         </div>
