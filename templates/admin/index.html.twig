@@ -1,52 +1,20 @@
 {% extends '@EasyAdmin/page/content.html.twig' %}
 
-{% block page_title %}Tableau de bord{% endblock %}
+{% block page_title %}NEOSYST GESTION{% endblock %}
 
 {% block content_title %}
-    <h1 class="font-lexend">Tableau de bord</h1>
+    <p class="hidden">Tableau de bord</p>
 {% endblock %}
 
 {% block main %}
-    <div class="row">
-        <div class="col-md-6 mb-4">
-            <div class="card">
-                <div class="card-header">
-                    <h3 class="card-title">Accueil</h3>
-                </div>
-                <div class="card-body">
-                    <a href="/" class="btn btn-primary">Retourner à l'accueil</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-6 mb-4">
-            <div class="card">
-                <div class="card-header">
-                    <h3 class="card-title">Client</h3>
-                </div>
-                <div class="card-body">
-                    <a href="/admin?crudAction=index&crudControllerFqcn=App%5CController%5CAdmin%5CClientCrudController" class="btn btn-primary">Voir plus</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-6 mb-4">
-            <div class="card">
-                <div class="card-header">
-                    <h3 class="card-title">SAV</h3>
-                </div>
-                <div class="card-body">
-                    <a href="/admin?crudAction=index&crudControllerFqcn=App%5CController%5CAdmin%5CSAVCrudController" class="btn btn-primary">Voir plus</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-6 mb-4">
-            <div class="card">
-                <div class="card-header">
-                    <h3 class="card-title">Article</h3>
-                </div>
-                <div class="card-body">
-                    <a href="/admin?crudAction=index&crudControllerFqcn=App%5CController%5CAdmin%5CArticleCrudController" class="btn btn-primary">Voir plus</a>
-                </div>
-            </div>
+    <div class="container mx-auto mt-6 px-6">
+        <div class="text-center mb-8">
+            <h1 class="text-3xl font-lexend font-bold text-gray-800">
+                Gestion simplifiée avec EasyAdmin
+            </h1>
+            <p class="text-lg text-gray-600 mt-2">
+                Utilisez les menus à gauche de l'écran pour gérer vos données de manière intuitive et rapide : Clients, Articles et SAV.
+            </p>
         </div>
     </div>
 {% endblock %}
