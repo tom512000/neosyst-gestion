@@ -6,6 +6,7 @@ use App\Entity\SAV;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
@@ -32,14 +33,14 @@ class SAVCrudController extends AbstractCrudController
             TextField::new('code', 'Code'),
             TextField::new('representative', 'Représentant'),
             TextField::new('breakdown', 'Panne'),
-            TextField::new('endDate', 'Date prévu'),
+            DateField::new('endDate', 'Date prévu'),
             TextField::new('repairedBy', 'Réparateur'),
             TextField::new('repairs', 'Réparations'),
             TextField::new('comments', 'Observations'),
             TextField::new('charge', 'Coût'),
             TextField::new('spreadsheetName', 'Fichier Excel'),
-            TextField::new('createdDate', 'Date de création'),
-            TextField::new('editedDate', 'Date de modification'),
+            DateField::new('createdDate', 'Date de création'),
+            DateField::new('editedDate', 'Date de modification'),
             AssociationField::new('client', 'Client'),
         ];
     }
